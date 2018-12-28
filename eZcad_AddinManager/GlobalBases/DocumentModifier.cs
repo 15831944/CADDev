@@ -216,6 +216,11 @@ namespace eZcad
         /// <param name="value">集合中的所有数据写在一行，并以“,”分隔</param>
         public void WriteNow(params object[] value)
         {
+            if (value.Length==0)
+            {
+                acEditor.WriteMessage("\n");
+                return;
+            }
             var sb = new StringBuilder();
             sb.Append(value[0]);
             for (int i = 1; i < value.Length; i++)
@@ -230,6 +235,11 @@ namespace eZcad
         /// <param name="value">集合中的所有数据分别写在不同行</param>
         public void WriteLinesNow(params object[] value)
         {
+            if (value.Length==0)
+                {
+                    acEditor.WriteMessage("\n");
+                return;
+            }
             var sb = new StringBuilder();
             sb.Append(value[0]);
             for (int i = 1; i < value.Length; i++)

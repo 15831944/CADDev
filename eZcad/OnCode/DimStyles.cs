@@ -51,12 +51,16 @@ namespace eZcad.OnCode
             foreach (var dimStyleId in dimStyles)
             {
                 var dimStyle = docMdf.acTransaction.GetObject(dimStyleId, OpenMode.ForWrite) as DimStyleTableRecord;
-                
+
                 // 开始修改标注样式
                 if (dimStyle.Name.StartsWith("D"))
                 {
-                    // 修改箭头大小
-                    dimStyle.Dimdec = 3;
+                    // 对标注样式进行修改
+
+                    // dimStyle.Dimdec = 3; // 主单位精度
+                    dimStyle.Dimgap = 0.65; // 文字从尺寸线偏移
+                    dimStyle.Dimadec = 1;
+
                 }
                 else
                 {

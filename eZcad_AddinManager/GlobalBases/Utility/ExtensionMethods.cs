@@ -102,9 +102,8 @@ namespace eZcad.Utility
 
         #region ---   BlockReference
 
-        /// <summary> 根据块参照中属性定义的名称返回对应的项 </summary>
+        /// <summary> 返回块参照实例中所有的属性定义 </summary>
         /// <param name="blk"></param>
-        /// <param name="attTag">属性定义的名称</param>
         /// <returns></returns>
         public static List<AttributeReference> GetAttributeReferences(this BlockReference blk)
         {
@@ -330,6 +329,28 @@ namespace eZcad.Utility
                  (pt.Y >= ext.MinPoint.Y && pt.Y <= ext.MaxPoint.Y) &&
                  (pt.Z >= ext.MinPoint.Z && pt.Z <= ext.MaxPoint.Z);
         }
+
+        /// <summary> 是否包含某一点（包括边界） </summary>
+        public static Point3d GetCenter(this Extents3d ext)
+        {
+            var min = ext.MinPoint;
+            var max = ext.MaxPoint;
+            return new Point3d((max.X + min.X) / 2, (max.Y + min.Y) / 2, (max.Z + min.Z) / 2);
+        }
+
+        /// <summary> 获取 Extents3d 的几何描述信息，并附加到 <seealso cref="StringBuilder"/> 中 </summary>
+        public static void AppendDescription(this Extents3d ext, ref StringBuilder description)
+        {
+            const string sep = ";";
+            var adExt = new AdvancedExtents3d(ext);
+            description.Append("Min:" + ext.MinPoint + sep);
+            description.Append("Max:" + ext.MaxPoint + sep);
+            description.Append("Center:" + (adExt.GetAnchor(AdvancedExtents3d.Anchor.GeometryCenter)) + sep);
+            description.Append("Width:" + adExt.GetWidth() + sep);
+            description.Append("Height:" + adExt.GetHeight() + sep);
+            description.Append("Depth:" + adExt.GetDepth() + sep);
+        }
+
         #endregion
 
         #region ---   Exception

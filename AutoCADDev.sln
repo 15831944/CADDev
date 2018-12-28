@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eZcad", "eZcad\eZcad.csproj", "{D1B63AC0-DF3E-4A1B-8471-0C6C1A8880DE}"
 EndProject
@@ -13,9 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eZx_API", "..\eZOffice\eZx_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExeTests", "..\eZstd\Projects\ConsoleApplication1\ExeTests.csproj", "{9E54DA6A-0629-4825-A7AD-298E9812FDE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubgradeQuantity", "SubgradeQuantity\SubgradeQuantity.csproj", "{9F3B3C1D-DCD2-4E9C-9FE1-8CE3EA7BB160}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESD", "RESD\RESD.csproj", "{9F3B3C1D-DCD2-4E9C-9FE1-8CE3EA7BB160}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQControls", "SubgradeQuantity\SQControls\SQControls.csproj", "{A70160DF-0AA8-4BD2-88B6-C8E34D870658}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESD_Register", "RESD\RESD_Register\RESD_Register.csproj", "{A70160DF-0AA8-4BD2-88B6-C8E34D870658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

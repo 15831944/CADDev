@@ -140,7 +140,7 @@
             this.Controls.Add(this.treeView1);
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(360, 298);
+            this.MinimumSize = new System.Drawing.Size(470, 298);
             this.Name = "form_AddinManager";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Add-In Manager";

@@ -54,7 +54,7 @@ namespace eZcad.Addins.Geometry
         /// <param name="impliedSelection"> 用户在执行方法之前已经选择好的对象。</param>
         private ExternalCmdResult ReverseCurveEnds(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
-            docMdf.acEditor.Command();
+            //docMdf.acEditor.Command();
 
             Curve c = null;
             if (impliedSelection != null)

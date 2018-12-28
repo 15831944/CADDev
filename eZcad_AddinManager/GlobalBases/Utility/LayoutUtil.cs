@@ -36,9 +36,9 @@ namespace eZcad.Utility
 
         /// <summary> 切换到图纸空间 </summary>
         /// <param name="layoutId">除模型空间之外的 Layout 的Id</param>
-        public static void SwitchLayout(ObjectId layoutId)
+        private static void SwitchLayout(ObjectId layoutId)
         {
-            LayoutManager.Current.SetCurrentLayoutId(layoutId);
+            //LayoutManager.Current.SetCurrentLayoutId(layoutId);// AutoCAD 2016
         }
 
         /// <summary> 切换到图纸空间 </summary>
@@ -47,8 +47,7 @@ namespace eZcad.Utility
         {
             LayoutManager.Current.CurrentLayout = layoutName;
         }
-
-
+        
         /// <summary> Apply plot settings to the provided layout. </summary>
         /// <param name="layout">要进行设置的布局</param>
         /// <param name="pageSize">The canonical media name for our page size. 比如 "ANSI_B_(11.00_x_17.00_Inches)"</param>

@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Markup;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 using eZcad.AddinManager;
-using eZcad.Addins;
 using eZcad.Addins.Text;
 using eZcad.Debug;
 using eZcad.Utility;
@@ -19,17 +15,18 @@ using eZcad.Utility;
 // This line is not mandatory, but improves loading performances
 // 测试中，如果不使用下面这条，则在AutoCAD中对应的 External Command 不能正常加载。
 
-[assembly: CommandClass(typeof(DBTextsToMText))]
+[assembly: CommandClass(typeof (DBTextsToMText))]
 
 namespace eZcad.Addins.Text
 {
     /// <summary> 将多个单行文字转换为一个多行文字对象 </summary>
-    public class DBTextsToMText:ICADExCommand
+    public class DBTextsToMText : ICADExCommand
     {
         #region --- 命令设计
 
         /// <summary> 命令行命令名称，同时亦作为命令语句所对应的C#代码中的函数的名称 </summary>
         public const string CommandName = @"ConvertDBTextsToMText";
+
         private const string CommandText = @"单行转多行";
         private const string CommandDescription = @"将多个单行文字转换为一个多行文字对象";
 
@@ -56,9 +53,9 @@ namespace eZcad.Addins.Text
         private DocumentModifier _docMdf;
 
         /// <summary> 将单行文字转换为多行文字 </summary>
-        private  ExternalCmdResult ConvertDBTextsToMText(DocumentModifier docMdf, SelectionSet impliedSelection)
+        private ExternalCmdResult ConvertDBTextsToMText(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
-           if (ManualMode(docMdf))
+            if (ManualMode(docMdf))
             {
                 ConvertInManualMode(docMdf);
             }
@@ -66,7 +63,7 @@ namespace eZcad.Addins.Text
             {
                 ConvertInAutoMode(docMdf);
             }
-           return ExternalCmdResult.Commit;
+            return ExternalCmdResult.Commit;
         }
 
         private static void ConvertInAutoMode(DocumentModifier docMdf)
@@ -88,7 +85,7 @@ namespace eZcad.Addins.Text
                     if (!sortedTexts.ContainsKey(dt.Position.Y))
                     {
                         //
-                        width = dt.TextString.Length * dt.Height * dt.WidthFactor * 1.05; // 1.1 为放大系数
+                        width = dt.TextString.Length*dt.Height*dt.WidthFactor*1.05; // 1.1 为放大系数
                         maxWidth = Math.Max(maxWidth, width);
                         sortedTexts.Add(dt.Position.Y, dt);
                     }
@@ -136,7 +133,8 @@ namespace eZcad.Addins.Text
                 location = (topText as MText).Location;
             }
             // 以只读方式打开块表   Open the Block table for read
-            var acBlkTbl = docMdf.acTransaction.GetObject(docMdf.acDataBase.BlockTableId, OpenMode.ForRead) as BlockTable;
+            var acBlkTbl =
+                docMdf.acTransaction.GetObject(docMdf.acDataBase.BlockTableId, OpenMode.ForRead) as BlockTable;
 
             // 以写方式打开模型空间块表记录   Open the Block table record Model space for write
             var btr =
@@ -174,9 +172,10 @@ namespace eZcad.Addins.Text
             if (txt != null)
             {
                 txt.Highlight(); // 让此文字显示为被选中的状态
-                mTextWidth = txt.TextString.Length * txt.Height * txt.WidthFactor;
+                mTextWidth = txt.TextString.Length*txt.Height*txt.WidthFactor;
                 // 以只读方式打开块表   Open the Block table for read
-                var acBlkTbl = docMdf.acTransaction.GetObject(docMdf.acDataBase.BlockTableId, OpenMode.ForRead) as BlockTable;
+                var acBlkTbl =
+                    docMdf.acTransaction.GetObject(docMdf.acDataBase.BlockTableId, OpenMode.ForRead) as BlockTable;
 
                 // 以写方式打开模型空间块表记录   Open the Block table record Model space for write
                 var acBlkTblRec =
@@ -208,14 +207,14 @@ namespace eZcad.Addins.Text
                 {
                     txt.Highlight(); // 让此文字显示为被选中的状态
 
-                    double dbTxtWidth = txt.TextString.Length * txt.Height * txt.WidthFactor;
+                    double dbTxtWidth = txt.TextString.Length*txt.Height*txt.WidthFactor;
 
                     if (dbTxtWidth > mTextWidth)
                     {
                         mTextWidth = dbTxtWidth;
                         mTxt.Width = mTextWidth;
                     }
-                    mTxt.Contents += "\\P" + txt.TextString;  // “\P”为 MText 中专门用来表示换行的符号
+                    mTxt.Contents += "\\P" + txt.TextString; // “\P”为 MText 中专门用来表示换行的符号
                     // mTxt.Draw();
                     //
                     txt.UpgradeOpen();
@@ -231,8 +230,7 @@ namespace eZcad.Addins.Text
 
         private static bool ManualMode(DocumentModifier docMdf)
         {
-
-            Dictionary<string, string> ss = new Dictionary<string, string> { { "e", "te" } };
+            Dictionary<string, string> ss = new Dictionary<string, string> {{"e", "te"}};
 
             var option = new PromptKeywordOptions(
                 messageAndKeywords: "\n将单行文字转换为多行文字\n[手动(M) / 自动(A)]:",
@@ -251,7 +249,7 @@ namespace eZcad.Addins.Text
             // 点选
             var peO = new PromptEntityOptions("\n 选择一个单行文字 ");
             peO.SetRejectMessage("\n 请选择一个单行文字\n");
-            peO.AddAllowedClass(typeof(DBText), exactMatch: false);
+            peO.AddAllowedClass(typeof (DBText), exactMatch: false);
 
             // 请求在图形区域选择对象
             var res = docMdf.acEditor.GetEntity(peO);
@@ -295,6 +293,7 @@ namespace eZcad.Addins.Text
             }
             return null;
         }
+
         #endregion
     }
 }

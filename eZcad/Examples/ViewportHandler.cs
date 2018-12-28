@@ -23,7 +23,8 @@ namespace eZcad.Examples
             // 打开布局
             var lm = LayoutManager.Current;
             var layout = lm.GetLayoutId(name: "A3").GetObject(OpenMode.ForRead) as Layout;
-            lm.SetCurrentLayoutId(layout.Id);
+            lm.CurrentLayout = layout.LayoutName;
+            // lm.SetCurrentLayoutId(layout.Id); AutoCAD 2016
             var brt = layout.BlockTableRecordId.GetObject(OpenMode.ForRead) as BlockTableRecord;
             brt.UpgradeOpen();
 

@@ -32,6 +32,9 @@ namespace eZcad.Addins
             "MTEDIT", // 编辑 多行文字
             "MLEADERCONTENTEDIT", // 编辑 多重引线
             "TEXTEDIT", // 编辑 标注文字
+            "FIND", // 查找文字
+            "RENAME", // 块等对象的重命名
+
         };
         #endregion
 
