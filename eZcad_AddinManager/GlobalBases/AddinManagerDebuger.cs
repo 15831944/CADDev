@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using eZcad.AddinManager;
@@ -52,12 +54,14 @@ namespace eZcad
             }
         }
 
+        #region ---   从界面中选择对象
+
         /// <summary> 在界面中选择一个对象 </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="ed"></param>
         /// <param name="message"></param>
         /// <returns></returns>
-        public static T PickObject<T>(Editor ed, string message = "选择一个对象") where T : Entity
+        public static T PickEntity<T>(Editor ed, string message = "选择一个对象") where T : Entity
         {
             var op = new PromptEntityOptions(message);
             op.SetRejectMessage($"请选择一个 {typeof(T).FullName} 对象");
@@ -73,6 +77,48 @@ namespace eZcad
             }
         }
 
+        /// <summary> 在界面中选择多个对象 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ed"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static T[] PickEntities<T>(Editor ed, string message = "选择多个对象") where T : Entity
+        {
+            var objectIds = PickEntities(ed, message);
+            return objectIds.Select(id => id.GetObject(OpenMode.ForRead)).OfType<T>().ToArray();
+        }
+
+        /// <summary> 在界面中选择多个对象 </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ed"></param>
+        /// <param name="message"></param>
+        /// <returns></returns>
+        public static ObjectId[] PickEntities(Editor ed, string message = "选择多个对象")
+        {
+            var entities = new ObjectId[0];
+            var op = new PromptSelectionOptions()
+            {
+
+            };
+            op.MessageForAdding = message;
+            op.MessageForRemoval = message;
+
+
+            //获取当前文档编辑器
+            Editor acDocEd = Application.DocumentManager.MdiActiveDocument.Editor;
+
+            // 请求在图形区域选择对象
+            var res = acDocEd.GetSelection(op);
+
+            // 如果提示状态OK，表示对象已选
+            if (res.Status == PromptStatus.OK)
+            {
+                entities = res.Value.GetObjectIds();
+            }
+            return entities;
+        }
+
+        #endregion
 
         /// <summary>
         /// 具体的高度操作的代码模板
@@ -81,7 +127,7 @@ namespace eZcad
         /// <param name="impliedSelection"></param>
         private void DoSomethingTemplate(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
-            var obj = AddinManagerDebuger.PickObject<Entity>(docMdf.acEditor);
+            var obj = AddinManagerDebuger.PickEntity<Entity>(docMdf.acEditor);
             if (obj != null)
             {
                 var blkTb =

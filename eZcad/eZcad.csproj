@@ -82,30 +82,37 @@
     <StartupObject>
     </StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ORDDirectory>D:\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\</ORDDirectory>
+  </PropertyGroup>
   <ItemGroup>
     <!--ACA References Begin-->
     <!--ACA Refences End-->
     <!--AME Referebces Begin-->
     <!--AME Reference End-->
     <Reference Include="accoremgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\accoremgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AcCui">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\AcCui.dll</HintPath>
+      <HintPath>$(ORDDirectory)AcCui.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\acdbmgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\acmgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="AdWindows">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\AdWindows.dll</HintPath>
+      <HintPath>$(ORDDirectory)AdWindows.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="eZcad_AddinManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\eZcad_AddinManager\bin\Debug\eZcad_AddinManager.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -131,17 +138,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addins\Annotation\AnnotationEntity.cs" />
-    <Compile Include="Addins\BlockRefEditor\AttriBlock.cs" />
-    <Compile Include="Addins\BlockRefEditor\BlockRefEditor.cs" />
-    <Compile Include="Addins\BlockRefEditor\BlockRefEditorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Addins\BlockRefEditor\BlockRefEditorForm.Designer.cs">
-      <DependentUpon>BlockRefEditorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Addins\BlockRefEditor\SortColumnCollection.cs" />
-    <Compile Include="Addins\Annotation\Ec_EntityAnnotationEditor.cs" />
+    <Compile Include="Addins\Entities\AnnotationEntity.cs" />
+    <Compile Include="Addins\Entities\Ec_GetExtension.cs" />
+    <Compile Include="Addins\Entities\Ec_EntityAnnotationEditor.cs" />
     <Compile Include="Addins\Geometry\PolylineRemesh2.cs" />
     <Compile Include="Addins\LayoutViewport\Form_LayoutLister.cs">
       <SubType>Form</SubType>
@@ -160,7 +159,7 @@
     <Compile Include="Addins\Table\CopyColumns.cs" />
     <Compile Include="Addins\Text\DbTextCenterAlign.cs" />
     <Compile Include="Addins\Text\DbTextsFormator.cs" />
-    <Compile Include="Addins\AreaSumup.cs" />
+    <Compile Include="Addins\CurveAreaSumup.cs" />
     <Compile Include="Addins\Geometry\PolylineRemesh.cs" />
     <Compile Include="Addins\Geometry\ReverseCurve.cs" />
     <Compile Include="Addins\Geometry\PolyfaceToSubdmesh.cs" />
@@ -172,8 +171,9 @@
     <Compile Include="Addins\LayoutViewport\Ec_ViewportCreator.cs" />
     <Compile Include="Debug\Ec_extractPoints.cs" />
     <Compile Include="Examples\ViewportHandler.cs" />
+    <Compile Include="OnCode\BlockRefAttStyleEditor.cs" />
     <Compile Include="OnCode\BlockAttStyleEditor.cs" />
-    <Compile Include="Debug\Ec_RepairTextStyles.cs" />
+    <Compile Include="OnCode\TextStyles.cs" />
     <Compile Include="Debug\Ec_GetThinedPolyline.cs" />
     <Compile Include="Examples\DrawInUCS.cs" />
     <Compile Include="Examples\UISetup1.cs" />
@@ -231,9 +231,6 @@
     <Compile Include="Debuger\RibbonButtonAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Addins\BlockRefEditor\BlockRefEditorForm.resx">
-      <DependentUpon>BlockRefEditorForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Addins\LayoutViewport\Form_LayoutLister.resx">
       <DependentUpon>Form_LayoutLister.cs</DependentUpon>
     </EmbeddedResource>
@@ -275,7 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AutoCAD">
-      <Guid>{4E3F492A-FB57-4439-9BF0-1567ED84A3A9}</Guid>
+      <Guid>{D5C3CB6F-AA0A-4D45-B02D-CF2974EFD4BE}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
@@ -301,11 +298,6 @@
     <ProjectReference Include="..\..\eZstd\Projects\eZstd\eZstd.csproj">
       <Project>{fb9b6528-5424-4b7a-aeba-6733450dc44b}</Project>
       <Name>eZstd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\eZcad_AddinManager\eZcad_AddinManager.csproj">
-      <Project>{835fa817-ebe4-4c2b-91d4-a6b945878105}</Project>
-      <Name>eZcad_AddinManager</Name>
-      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

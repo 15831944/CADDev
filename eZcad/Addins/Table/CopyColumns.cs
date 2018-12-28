@@ -84,7 +84,14 @@ namespace eZcad.Addins.Table
             {
                 var t = texts[i];
                 t.UpgradeOpen();
-                t.TextString = lines[i];
+                if (t is DBText)
+                {
+                    (t as DBText).TextString = lines[i];
+                }
+                else if (t is MText)
+                {
+                    (t as MText).Contents = lines[i];
+                }
                 t.DowngradeOpen();
                 //
                 changedTextIds[i] = (t.ObjectId);
@@ -128,7 +135,11 @@ namespace eZcad.Addins.Table
             }
         }
 
-        private List<DBText> SelectTexts()
+        /// <summary>
+        /// 返回单行或者多行文字的集合
+        /// </summary>
+        /// <returns></returns>
+        private List<Entity> SelectTexts()
         {
             var op = new PromptSelectionOptions();
             op.MessageForAdding = "\n选择一列或一行文本"; // 当用户在命令行中输入A（或Add）时，命令行出现的提示字符。
@@ -136,37 +147,46 @@ namespace eZcad.Addins.Table
 
             var filterType = new[]
             {
-                new TypedValue((int) DxfCode.Start, "TEXT"),
-            };
 
+            new TypedValue((int)DxfCode.Operator, "<OR"),
+                new TypedValue((int) DxfCode.Start, "TEXT"),
+                new TypedValue((int) DxfCode.Start, "MTEXT"),
+                new TypedValue((int)DxfCode.Operator, "OR>")
+            };
             var res = _docMdf.acEditor.GetSelection(op, new SelectionFilter(filterType));
-            var texts = new List<DBText>();
+            var texts = new List<Entity>();
             if (res.Status == PromptStatus.OK)
             {
                 foreach (var id in res.Value.GetObjectIds())
                 {
-                    var c = id.GetObject(OpenMode.ForRead) as DBText;
+                    var c = id.GetObject(OpenMode.ForRead) as Entity;
                     if (c != null)
                     {
-                        texts.Add(c);
+                        if ((c is DBText) || (c is MText))
+                        {
+                            texts.Add(c);
+                        }
                     }
                 }
             }
-
             return texts;
         }
 
         /// <summary> Y 值大的排在前面 </summary>
-        private int RowsComparer(DBText ent1, DBText ent2)
+        private int RowsComparer(Entity ent1, Entity ent2)
         {
             // Y 值大的排在前面
-            return ent2.Position.Y.CompareTo(ent1.Position.Y);
+            double y1 = (ent1 as MText)?.Location.Y ?? (ent1 as DBText).Position.Y;
+            double y2 = (ent2 as MText)?.Location.Y ?? (ent2 as DBText).Position.Y;
+            return y2.CompareTo(y1);
         }
         /// <summary> X 值小的排在前面 </summary>
-        private int ColsComparer(DBText ent1, DBText ent2)
+        private int ColsComparer(Entity ent1, Entity ent2)
         {
             // X 值小的排在前面
-            return ent1.Position.X.CompareTo(ent2.Position.X);
+            double x1 = (ent1 as MText)?.Location.X ?? (ent1 as DBText).Position.X;
+            double x2 = (ent2 as MText)?.Location.X ?? (ent2 as DBText).Position.X;
+            return x1.CompareTo(x2);
         }
     }
 }

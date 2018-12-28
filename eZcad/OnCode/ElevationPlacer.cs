@@ -48,6 +48,7 @@ namespace eZcad.OnCode
         /// <summary> 点击界面中的点以生成对应的标高 </summary>
         private ExternalCmdResult PlaceElevation(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
+            _docMdf = docMdf;
             // 以只读方式打开块表   Open the Block table for read
             var acBlkTbl =
                 docMdf.acTransaction.GetObject(docMdf.acDataBase.BlockTableId, OpenMode.ForRead) as BlockTable;
@@ -58,15 +59,15 @@ namespace eZcad.OnCode
                     BlockTableRecord;
 
             var pt = GetElevationPoint(docMdf);
-
+            var ucsOri = docMdf.acEditor.CurrentUserCoordinateSystem.Translation;
             while (pt != null)
             {
-                var ele = pt.Value.Y / 1000;
+                var ele = pt.Value.Y;
                 var txt = new DBText
                 {
-                    TextString = ele.ToString("000.000"),
-                    Position = pt.Value,
-                    Height = 1000,
+                    TextString = ele.ToString("###.000"),
+                    Position = pt.Value.Add(ucsOri),
+                    Height = 1,
                     WidthFactor = 0.7
                 };
                 // txt.SetDatabaseDefaults();

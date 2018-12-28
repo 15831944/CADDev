@@ -72,9 +72,9 @@ namespace eZcad.Examples
                 myPaletteSet.Dispose();
             }
         }
-        
+
         #region --- 添加自定义功能区选项卡
-        
+
         /// <summary>
         /// ComponentManager.ItemInitialized 事件在每一次添加对象（选项卡 RibbonTab、不包括：工具栏）时都会触发。
         /// </summary>
@@ -183,9 +183,9 @@ namespace eZcad.Examples
                 if (ribBtn != null)
                 {
                     //execute the command 
-                    Application.DocumentManager.MdiActiveDocument.SendStringToExecute((string)ribBtn.CommandParameter,
-                        true,
-                        false, true);
+                    var doc = Application.DocumentManager.MdiActiveDocument;
+                    doc.SendStringToExecute(
+                         (string)ribBtn.CommandParameter, true, false, true);
                 }
             }
         }

@@ -27,7 +27,6 @@ namespace eZcad_AddinManager
         // NOTE: CommandMethod has overloads where you can provide helpid and
         // context menu.
 
-
         private bool _addinManagerFirstLoaded = true;
         // Modal Command with localized name
         [CommandMethod("AddinManager", "LoadAddinManager", CommandFlags.Modal | CommandFlags.UsePickSet | CommandFlags.Redraw)]
@@ -37,7 +36,6 @@ namespace eZcad_AddinManager
             if (_addinManagerFirstLoaded)
             {
                 // 将上次插件卸载时保存的程序集数据加载进来
-
                 var nodesInfo = AssemblyInfoDllManager.GetInfosFromSettings();
                 frm.RefreshTreeView(nodesInfo);
 
@@ -49,10 +47,15 @@ namespace eZcad_AddinManager
             }
             // 先清空以前已经选择的对象集合
             SetImpliedSelection();
-            
+
             frm.WindowState = FormWindowState.Normal; // 取消其最小化
-            Application.ShowModelessDialog(null, frm);
-            //Application.ShowModalDialog(frm);
+            if (!frm.Visible)
+            {
+                frm.Show(null);
+                // Application.ShowModelessDialog(null, frm);
+                //Application.ShowModalDialog(frm);
+            }
+
         }
 
         // Modal Command with localized name

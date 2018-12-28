@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autodesk.AutoCAD.DatabaseServices;
+﻿using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 
 namespace eZcad.Utility
@@ -22,7 +17,7 @@ namespace eZcad.Utility
             GeometryCenter,
         }
 
-
+        /// <summary> 构造函数 </summary>
         public AdvancedExtents3d(Extents3d ext)
         {
             Ext = ext;
@@ -35,7 +30,6 @@ namespace eZcad.Utility
         /// <returns></returns>
         public Point3d GetAnchor(Anchor anchor)
         {
-
             switch (anchor)
             {
                 case Anchor.GeometryCenter:
@@ -51,11 +45,12 @@ namespace eZcad.Utility
             }
         }
 
-        /// <summary> 高度 </summary>
-        /// <returns></returns>
-        public double GetHeight()
-        {
-            return MaxP.Y - MinP.Y;
-        }
+        /// <summary> 宽度 X 之差 </summary> 
+        public double GetWidth() { return MaxP.X - MinP.X; }
+        /// <summary> 高度 Y 之差 </summary> 
+        public double GetHeight() { return MaxP.Y - MinP.Y; }
+        /// <summary> 深度 Z 之差 </summary> 
+        public double GetDepth() { return MaxP.Z - MinP.Z; }
+
     }
 }

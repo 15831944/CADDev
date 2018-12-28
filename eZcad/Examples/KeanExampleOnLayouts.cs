@@ -272,22 +272,23 @@ namespace eZcad.Examples
 
                 ext = lay.GetMaximumExtents();
 
-                lay.ApplyToViewport(tr, 2,vp =>{
-                        // Size the viewport according to the extents calculated when
-                        // we set the PlotSettings (device, page size, etc.)
-                        // Use the standard 10% margin around the viewport
-                        // (found by measuring pixels on screenshots of Layout1, etc.)
-                        vp.ResizeViewport(ext, 0.8);
+                lay.ApplyToViewport(tr, 2, vp =>
+                {
+                    // Size the viewport according to the extents calculated when
+                    // we set the PlotSettings (device, page size, etc.)
+                    // Use the standard 10% margin around the viewport
+                    // (found by measuring pixels on screenshots of Layout1, etc.)
+                    vp.ResizeViewport(ext, 0.8);
 
-                        // Adjust the view so that the model contents fit
-                        if (ValidDbExtents(db.Extmin, db.Extmax))
-                        {
-                            vp.FitContentToViewport(new Extents3d(db.Extmin, db.Extmax), 0.9);
-                        }
-
-                        // Finally we lock the view to prevent meddling
-                        vp.Locked = true;
+                    // Adjust the view so that the model contents fit
+                    if (ValidDbExtents(db.Extmin, db.Extmax))
+                    {
+                        vp.FitContentToViewport(new Extents3d(db.Extmin, db.Extmax), 0.9);
                     }
+
+                    // Finally we lock the view to prevent meddling
+                    vp.Locked = true;
+                }
                     );
 
                 // Commit the transaction
@@ -295,8 +296,11 @@ namespace eZcad.Examples
             }
 
             // Zoom so that we can see our new layout, again with a little padding
-            ed.Command("_.ZOOM", "_E");
-            ed.Command("_.ZOOM", ".7X");
+
+            doc.SendStringToExecute("_.ZOOM _E ", true, false, false); // AutoCAD 2014
+            doc.SendStringToExecute("_.ZOOM .7X ", true, false, false); // AutoCAD 2014
+            // ed.Command("_.ZOOM", "_E");  // AutoCAD 2016
+            //  ed.Command("_.ZOOM", ".7X"); // AutoCAD 2016
             ed.Regen();
         }
 

@@ -45,7 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\eZcad_AddinManager.XML</DocumentationFile>
+    <DocumentationFile>..\bin\eZcad_AddinManager.XML</DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -79,21 +79,26 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  
+    <PropertyGroup>
+    <ORDDirectory>D:\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\</ORDDirectory>
+  </PropertyGroup>  
+  
   <ItemGroup>
     <!--ACA References Begin-->
     <!--ACA Refences End-->
     <!--AME Referebces Begin-->
     <!--AME Reference End-->
     <Reference Include="accoremgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\accoremgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acdbmgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\acdbmgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)acdbmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="acmgd">
-      <HintPath>C:\Softwares\Civil Engineering\AutoCAD 2016\acmgd.dll</HintPath>
+      <HintPath>$(ORDDirectory)acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Interop.AutoCAD">

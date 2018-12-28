@@ -62,7 +62,7 @@ namespace eZcad.Addins.LayoutViewport
 
             //return ExternalCmdResult.Commit;
             // 从模型空间中获取视口裁剪框
-            var pl_Model = AddinManagerDebuger.PickObject<Curve>(docMdf.acEditor);
+            var pl_Model = AddinManagerDebuger.PickEntity<Curve>(docMdf.acEditor);
             Point3d bottomLeftPt = default(Point3d);
             Point3d bottomRightPt = default(Point3d);
             double bottomLength = 0;
@@ -84,6 +84,10 @@ namespace eZcad.Addins.LayoutViewport
             f.ShowDialog();
             if (f.CreateNewLayout)
             {
+                // 
+                MessageBox.Show("请先自行创建带图框的布局");
+                return ExternalCmdResult.Cancel;
+                /*
                 var layoutName = "NewLayout" + DateTime.Now.Minute + DateTime.Now.Second;
                 layoutId = lm.GetLayoutId(layoutName);
                 if (!layoutId.IsValid)
@@ -100,6 +104,7 @@ namespace eZcad.Addins.LayoutViewport
                 {
                     layout = LayoutManager.Current.GetLayoutId(name: layoutName).GetObject(OpenMode.ForRead) as Layout;
                 }
+                */
             }
             else if (f.Layout != null)
             {
@@ -110,9 +115,16 @@ namespace eZcad.Addins.LayoutViewport
                 return ExternalCmdResult.Cancel;
             }
 
+            // docMdf.RestartTransaction(true);
+            // 切换布局
+           // lm.SetCurrentLayoutId(layout.Id); // AutoCAD 2016
+            lm.CurrentLayout = layout.LayoutName;
+
             // 创建视口
-            lm.SetCurrentLayoutId(layout.Id);
             CreateViewport(docMdf, modelUcs, layout, pl_Model, bottomLeftPt, bottomRightPt, bottomLength);
+
+            // 切换回模型空间
+            // Autodesk.AutoCAD.ApplicationServices.Core.Application.SetSystemVariable("TILEMODE", 1);
             // LayoutUtil.SwitchLayout();
             return ExternalCmdResult.Commit;
         }
@@ -146,8 +158,8 @@ namespace eZcad.Addins.LayoutViewport
             // 设置视口所对应的裁剪图形
             acVport.NonRectClipEntityId = layoutClipCurve.ObjectId;
             acVport.NonRectClipOn = true;
-            acVport.On = true;
-
+            acVport.On = true;  // 如果是新创建的布局，则此视口必须要先设置其 on 为true。
+            
             // 将视口放置到不打印层
             acVport.Layer = ACadConstants.LayerName_Defpoints;
             layoutClipCurve.Layer = ACadConstants.LayerName_Defpoints;

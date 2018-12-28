@@ -306,8 +306,22 @@
             用来辅助调试工作
             </summary>
         </member>
-        <member name="M:eZcad.AddinManagerDebuger.PickObject``1(Autodesk.AutoCAD.EditorInput.Editor,System.String)">
+        <member name="M:eZcad.AddinManagerDebuger.PickEntity``1(Autodesk.AutoCAD.EditorInput.Editor,System.String)">
             <summary> 在界面中选择一个对象 </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ed"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eZcad.AddinManagerDebuger.PickEntities``1(Autodesk.AutoCAD.EditorInput.Editor,System.String)">
+            <summary> 在界面中选择多个对象 </summary>
+            <typeparam name="T"></typeparam>
+            <param name="ed"></param>
+            <param name="message"></param>
+            <returns></returns>
+        </member>
+        <member name="M:eZcad.AddinManagerDebuger.PickEntities(Autodesk.AutoCAD.EditorInput.Editor,System.String)">
+            <summary> 在界面中选择多个对象 </summary>
             <typeparam name="T"></typeparam>
             <param name="ed"></param>
             <param name="message"></param>
@@ -386,14 +400,22 @@
         <member name="F:eZcad.Utility.AdvancedExtents3d.Anchor.GeometryCenter">
             <summary> 几何中心 </summary>
         </member>
+        <member name="M:eZcad.Utility.AdvancedExtents3d.#ctor(Autodesk.AutoCAD.DatabaseServices.Extents3d)">
+            <summary> 构造函数 </summary>
+        </member>
         <member name="M:eZcad.Utility.AdvancedExtents3d.GetAnchor(eZcad.Utility.AdvancedExtents3d.Anchor)">
             <summary> 获取空间立方体的特征角点 </summary>
             <param name="anchor"></param>
             <returns></returns>
         </member>
+        <member name="M:eZcad.Utility.AdvancedExtents3d.GetWidth">
+            <summary> 宽度 X 之差 </summary> 
+        </member>
         <member name="M:eZcad.Utility.AdvancedExtents3d.GetHeight">
-            <summary> 高度 </summary>
-            <returns></returns>
+            <summary> 高度 Y 之差 </summary> 
+        </member>
+        <member name="M:eZcad.Utility.AdvancedExtents3d.GetDepth">
+            <summary> 深度 Z 之差 </summary> 
         </member>
         <member name="T:eZcad.Utility.EditStateIdentifier">
             <summary> 用来获取AutoCAD界面中的编辑状态 </summary>
@@ -532,9 +554,8 @@
             <returns>如果未找到，则返回 null </returns>
         </member>
         <member name="M:eZcad.Utility.ExtensionMethods.GetAttributeReferences(Autodesk.AutoCAD.DatabaseServices.BlockReference)">
-            <summary> 根据块参照中属性定义的名称返回对应的项 </summary>
+            <summary> 返回块参照实例中所有的属性定义 </summary>
             <param name="blk"></param>
-            <param name="attTag">属性定义的名称</param>
             <returns></returns>
         </member>
         <member name="M:eZcad.Utility.ExtensionMethods.GetAttributeReference(Autodesk.AutoCAD.DatabaseServices.BlockReference,System.String)">
@@ -592,6 +613,12 @@
         </member>
         <member name="M:eZcad.Utility.ExtensionMethods.Contains(Autodesk.AutoCAD.DatabaseServices.Extents3d,Autodesk.AutoCAD.Geometry.Point3d)">
             <summary> 是否包含某一点（包括边界） </summary>
+        </member>
+        <member name="M:eZcad.Utility.ExtensionMethods.GetCenter(Autodesk.AutoCAD.DatabaseServices.Extents3d)">
+            <summary> 是否包含某一点（包括边界） </summary>
+        </member>
+        <member name="M:eZcad.Utility.ExtensionMethods.AppendDescription(Autodesk.AutoCAD.DatabaseServices.Extents3d,System.Text.StringBuilder@)">
+            <summary> 获取 Extents3d 的几何描述信息，并附加到 <seealso cref="T:System.Text.StringBuilder"/> 中 </summary>
         </member>
         <member name="M:eZcad.Utility.ExtensionMethods.AppendMessage(System.Exception)">
             <summary> 具体的报错信息与报错位置 </summary>
