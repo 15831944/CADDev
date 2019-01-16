@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 边坡防护长度数据所对应的类型 </summary>
     public enum StationInfoType

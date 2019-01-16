@@ -3,17 +3,18 @@ using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
+using RESD.AppSetup;
 using Exception = System.Exception;
 
 [assembly: CommandClass(typeof(ProtectionFlusher))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 从边坡线所绑定的防护方式的文字对象来设置防护 </summary>
     [EcDescription("从边坡线所绑定的防护方式的文字对象来设置防护")]
@@ -29,9 +30,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"将边坡线所绑定的防护方式的文字保存到边坡线数据中";
 
         /// <summary> 从边坡线所绑定的防护方式的文字对象来设置防护 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-            , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "FlushProtection_32.png")]
+            , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "FlushProtection_32.png")]
         public void FlushProtection()
         {
             DocumentModifier.ExecuteCommand(FlushProtection);
@@ -41,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new ProtectionFlusher();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.FlushProtection,
+            return AddinManagerDebuger.DebugInAddinManager(s.FlushProtection,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 高填深挖工程量 </summary>
     public class Exporter_HighFillDeepCut : DataExporter

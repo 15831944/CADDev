@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
+using eZcad;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class ModelessPForm : Form
     {

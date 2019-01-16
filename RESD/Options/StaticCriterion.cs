@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     /// <summary> 判断标准——低填浅挖 </summary>
     [XmlType(typeName: "低填浅挖")]
@@ -193,6 +193,10 @@ namespace eZcad.RESD.Options
 
         #region ---   判断标准——软基换填
 
+        /// <summary> 当道路中线处设计填方厚度大于此厚度值时，则不用进行换填处理。 </summary>
+        [Browsable(true), Category(ctg_Judge), Description("当道路中线处设计填方厚度大于此厚度值时，则不用进行换填处理。")]
+        public double 薄层厚度 { get; set; }
+
         /// <summary> 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于<seealso cref="最小换填厚度"/>，则认为此断面应该计入D的换填厚度 </summary>
         [Browsable(true), Category(ctg_Judge), Description("如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于此最小换填厚度，则认为此断面应该计入D的换填厚度")]
         public double 最小换填厚度 { get; set; }
@@ -229,6 +233,7 @@ namespace eZcad.RESD.Options
         /// <summary> 私有的构造函数 </summary>
         private Criterion_SoftSub() : base()
         {
+            薄层厚度 = 3.0;
             附加宽度 = 2.0;
             最小换填厚度 = 0.5;
             换填厚度 = 1.5;

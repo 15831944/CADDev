@@ -5,15 +5,17 @@ using System.Xml.XPath;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Options;
-using eZcad.RESD.ParameterForm;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.Options;
+using RESD.ParameterForm;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof(SubgradeEnvir))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 按标高将边坡对象进行分割，以实现同一级边坡中分别设置不同的防护形式 </summary>
     [EcDescription(CommandDescription)]
@@ -28,10 +30,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"设置整个道路中的结构物、岩土环境等信息";
 
         /// <summary> 按标高将边坡对象进行分割，以实现同一级边坡中分别设置不同的防护形式 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "Structures_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "Structures_32.png")]
         public void SetSubgradeEnvir()
         {
             DocumentModifier.ExecuteCommand(SetSubgradeEnvir);
@@ -41,7 +43,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SubgradeEnvir();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.SetSubgradeEnvir,
+            return AddinManagerDebuger.DebugInAddinManager(s.SetSubgradeEnvir,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

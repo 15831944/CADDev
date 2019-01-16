@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD.Options
+﻿namespace RESD.Options
 {
     partial class Form_ProjectInfos
     {

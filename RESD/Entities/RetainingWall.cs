@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Options;
+using RESD.Options;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     public enum RetainingWallType:short
     {

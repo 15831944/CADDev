@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
 using eZcad.Utility;
+using RESD.SlopeProtection;
+using RESD.Utility;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 每一侧边坡的所有数据 </summary>
     public class SlopeData

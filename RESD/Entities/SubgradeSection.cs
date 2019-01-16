@@ -6,12 +6,13 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 路基横断面 </summary>
     public class SubgradeSection

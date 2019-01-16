@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using eZcad.Utility;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     public partial class SchemeRenameForm : FormOk
     {

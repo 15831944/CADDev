@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.Entities;
 using eZcad.Utility;
+using RESD.Entities;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public static class Options_Collections
     {

@@ -7,15 +7,17 @@ using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Options;
-using eZcad.RESD.ParameterForm;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.Options;
+using RESD.ParameterForm;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof(SectionsConstructor))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary>
     /// 根据 AutoCAD 中的几何图形构造出完整的路基横断面信息系统
@@ -33,9 +35,9 @@ namespace eZcad.RESD.Cmds
 
 
         /// <summary> 根据 AutoCAD 中的几何图形构造出完整的路基横断面信息系统 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "Section_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "Section_32.png")]
         public void ConstructSections()
         {
             DocumentModifier.ExecuteCommand(ConstructSections);
@@ -45,7 +47,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SectionsConstructor();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.ConstructSections,
+            return AddinManagerDebuger.DebugInAddinManager(s.ConstructSections,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

@@ -6,16 +6,17 @@ using System.Text;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 using Utils = eZstd.Miscellaneous.Utils;
 
 [assembly: CommandClass(typeof(SectionInfosPlayer))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 提取所有的横断面的相关信息 </summary>
     [EcDescription(CommandDescription)]
@@ -31,9 +32,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"导出所有横断面的信息";
 
         /// <summary> 提取所有的横断面的相关信息 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet),
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet),
          DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SectionInfos_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SectionInfos_32.png")]
         public void AllSectionsInfo()
         {
             DocumentModifier.ExecuteCommand(AllSectionsInfo);
@@ -43,7 +44,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SectionInfosPlayer();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.AllSectionsInfo,
+            return AddinManagerDebuger.DebugInAddinManager(s.AllSectionsInfo,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

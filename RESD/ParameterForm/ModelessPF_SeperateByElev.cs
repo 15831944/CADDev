@@ -5,14 +5,15 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class ModelessPF_SeperateByElev : ModelessPForm
     {

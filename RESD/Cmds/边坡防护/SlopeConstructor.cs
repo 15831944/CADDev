@@ -3,15 +3,18 @@ using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(SlopeConstructor))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary>
     /// 创建边坡并设置每一个边坡的数据
@@ -26,9 +29,9 @@ namespace eZcad.RESD.Cmds
         public const string CommandName = "ConstructSlopes";
 
         /// <summary> 创建边坡并设置每一个边坡的数据 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(@"创建边坡"), Description("创建边坡并设置每一个边坡的数据")
-        , RibbonItem(@"创建边坡", "创建边坡并设置每一个边坡的数据", SQConstants.ImageDirectory + "ConstructSlopes_32.png")]
+        , RibbonItem(@"创建边坡", "创建边坡并设置每一个边坡的数据", AddinOptions.ImageDirectory + "ConstructSlopes_32.png")]
         public void ConstructSlopes()
         {
             DocumentModifier.ExecuteCommand(ConstructSlopes);

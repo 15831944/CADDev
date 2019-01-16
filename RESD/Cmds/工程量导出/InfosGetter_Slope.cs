@@ -4,14 +4,16 @@ using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof(InfosGetter_Slope))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 提取并计算边坡防护工程量 </summary>
     [EcDescription(CommandDescription)]
@@ -27,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"将所有的边坡信息提取出来并制成相应表格";
 
         /// <summary> 将所有的边坡信息提取出来并制成相应表格 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             SQConstants.ModelState | CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "DataExport_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "DataExport_32.png")]
         public void ExportSlopeInfos()
         {
             DocumentModifier.ExecuteCommand(ExportSlopeInfos);
@@ -40,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var sp = new InfosGetter_Slope();
-            return SQAddinManagerDebuger.DebugInAddinManager(sp.ExportSlopeInfos,
+            return AddinManagerDebuger.DebugInAddinManager(sp.ExportSlopeInfos,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

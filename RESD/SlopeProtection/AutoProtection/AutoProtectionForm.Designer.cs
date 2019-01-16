@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     partial class AutoProtectionForm
     {
@@ -47,7 +47,7 @@ namespace eZcad.RESD.SlopeProtection
             this.btn_AddScheme = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dgv_Slope = new eZcad.RESD.SlopeProtection.AutoProtectionForm.SlopeCriterionController();
+            this.dgv_Slope = new RESD.SlopeProtection.AutoProtectionForm.SlopeCriterionController();
             this.button_RenameScheme = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();

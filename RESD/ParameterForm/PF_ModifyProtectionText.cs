@@ -4,11 +4,13 @@ using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Controls;
+using eZcad;
+using RESD.ParameterForm;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Controls;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     /// <summary> 对AutoCAD图形中与边坡防护相关的文字进行修改 </summary>
     public partial class PF_ModifyProtectionText : ModalPForm

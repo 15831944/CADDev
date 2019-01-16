@@ -5,14 +5,14 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.Addins;
+using eZcad_AddinManager.Addins;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 using Exception = System.Exception;
 
 [assembly: CommandClass(typeof(CmdDuplicatesFinder))]
 // [assembly: PerDocumentClass(typeof(CmdDuplicatesFinder))]
 
-namespace eZcad.Addins
+namespace eZcad_AddinManager.Addins
 {
     class CmdDuplicatesFinder
     {

@@ -6,16 +6,17 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.ParameterForm;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.ParameterForm;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(InfosGetter_FillCutInters))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 将所有的填挖交界信息提取出来并制成相应表格 </summary>
     [EcDescription(CommandDescription)]
@@ -30,9 +31,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"将所有的填挖交界信息提取出来并制成相应表格";
 
         /// <summary> 将所有的填挖交界信息提取出来并制成相应表格 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "ExportFillCutIntersections_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "ExportFillCutIntersections_32.png")]
         public void ExportFillCutIntersections()
         {
             DocumentModifier.ExecuteCommand(ExportFillCutIntersections);
@@ -42,7 +43,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var sp = new InfosGetter_FillCutInters();
-            return SQAddinManagerDebuger.DebugInAddinManager(sp.ExportFillCutIntersections,
+            return AddinManagerDebuger.DebugInAddinManager(sp.ExportFillCutIntersections,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

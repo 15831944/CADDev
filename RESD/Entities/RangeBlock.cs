@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
 
     public enum BlockType : short

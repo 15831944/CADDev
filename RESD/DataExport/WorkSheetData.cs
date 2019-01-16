@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 工程量表类型 </summary>
     public enum WorkSheetDataType

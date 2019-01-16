@@ -4,12 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Utility;
 using eZstd.UserControls;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public partial class Form_SubgradeEnvir : FormOk
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     /// <summary> 用来记录一些静态成员的实例类（只类只有一个全局唯一的实例对象） </summary>
     [Serializable()]

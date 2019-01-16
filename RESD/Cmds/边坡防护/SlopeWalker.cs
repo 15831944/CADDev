@@ -4,15 +4,16 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(SlopeWalker))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 提取所有的横断面块参照的信息 </summary>
     [EcDescription(CommandDescription)]
@@ -26,9 +27,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"查看指定的边坡对象的信息";
 
         /// <summary> 提取所有的横断面块参照的信息 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SlopeWalk_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SlopeWalk_32.png")]
         public void SlopeWalk()
         {
             DocumentModifier.ExecuteCommand(SlopeWalk);
@@ -38,7 +39,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SlopeWalker();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.SlopeWalk,
+            return AddinManagerDebuger.DebugInAddinManager(s.SlopeWalk,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

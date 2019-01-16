@@ -5,11 +5,11 @@ using System.Text;
 using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using eZcad.AddinManager;
-using eZcad.RESD;
+using eZcad;
+using eZcad_AddinManager;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
-namespace eZcad.SQcmds
+namespace RESD.SQcmds
 {
     [EcDescription("AddinManager 调试代码模板")]
     public class DebugTemplate : ICADExCommand
@@ -23,7 +23,7 @@ namespace eZcad.SQcmds
             return ExternalCommandResult.Succeeded;
 
             var s = new DebugTemplate();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.DoSomething,
+            return RESD.AppSetup.AddinManagerDebuger.DebugInAddinManager(s.DoSomething,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

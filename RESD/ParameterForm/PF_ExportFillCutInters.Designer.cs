@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD.ParameterForm
+﻿namespace RESD.ParameterForm
 {
     partial class PF_ExportFillCutInters
     {

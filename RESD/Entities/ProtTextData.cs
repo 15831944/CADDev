@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Text;
-using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
-using Autodesk.AutoCAD.Geometry;
 using eZcad.Utility;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 边坡防护文字对象的数据 </summary>
     public class ProtTextData

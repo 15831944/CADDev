@@ -7,7 +7,7 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using eZcad.Utility;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 一个横断面的信息 </summary>
     public class SectionInfo

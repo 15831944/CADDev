@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     partial class PF_ModifyProtectionText
     {
@@ -42,7 +42,7 @@ namespace eZcad.RESD.ParameterForm
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.radioButton_Delete = new System.Windows.Forms.RadioButton();
             this.radioButton_highLight = new System.Windows.Forms.RadioButton();
-            this.protLayerLister1 = new eZcad.RESD.Controls.ItemLister();
+            this.protLayerLister1 = new RESD.Controls.ItemLister();
             this.panelSlopeLevel = new System.Windows.Forms.Panel();
             this.textBox_SlopeLevels = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();

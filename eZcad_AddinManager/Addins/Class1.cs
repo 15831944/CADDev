@@ -9,12 +9,12 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.Addins;
+using eZcad_AddinManager;
+using eZcad_AddinManager.Addins;
 
 [assembly: CommandClass(typeof(NetLoadTest))]
 
-namespace eZcad.Addins
+namespace eZcad_AddinManager.Addins
 {
     public class NetLoadTest
     {

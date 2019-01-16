@@ -1,0 +1,12 @@
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R19.1\ACAD-D001:804\Applications\eZcadTools]
+"DESCRIPTION"="zengfy CAD 辅助工具"
+"LOADCTRLS"=dword:00000002
+"LOADER"="D:\\GithubProjects\\CADDev_v2014\\bin\\eZcadTools.dll"
+"MANAGED"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Autodesk\AutoCAD\R19.1\ACAD-D001:804\Applications\AddinManager]
+"DESCRIPTION"="zengfy CAD 插件开发辅助工具"
+"LOADCTRLS"=dword:00000002
+"LOADER"="D:\\GithubProjects\\CADDev_v2014\\bin\\AddinManager.dll"
+"MANAGED"=dword:00000001

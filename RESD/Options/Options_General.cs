@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.Entities;
+using RESD.Entities;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public static class Options_General
     {

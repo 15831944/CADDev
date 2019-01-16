@@ -4,16 +4,17 @@ using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(InfosGetter_StairExcav))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 横向挖台阶工程量：对于横向边坡坡率位于 1:5 ~ 1:2.5 之间的填方边坡，进行挖台阶处理 </summary>
     [EcDescription(CommandDescription)]
@@ -28,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"对于横向边坡坡率位于 1:5 ~ 1:2.5 之间的填方边坡，进行挖台阶处理";
 
         /// <summary> 对于边坡坡率位于 1:5 ~ 1:2.5 之间的填方边坡，进行挖台阶处理 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "StairExcav_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "StairExcav_32.png")]
         public void StairExcav()
         {
             DocumentModifier.ExecuteCommand(StairExcav);
@@ -41,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new InfosGetter_StairExcav();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.StairExcav,
+            return AddinManagerDebuger.DebugInAddinManager(s.StairExcav,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

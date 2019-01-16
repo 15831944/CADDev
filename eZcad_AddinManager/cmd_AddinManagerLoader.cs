@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
+using eZcad_AddinManager;
 using eZcad_AddinManager;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
@@ -38,7 +38,6 @@ namespace eZcad_AddinManager
                 // 将上次插件卸载时保存的程序集数据加载进来
                 var nodesInfo = AssemblyInfoDllManager.GetInfosFromSettings();
                 frm.RefreshTreeView(nodesInfo);
-
                 //
                 _addinManagerFirstLoaded = false;
             }

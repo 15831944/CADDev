@@ -5,13 +5,13 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.Addins;
+using eZcad_AddinManager.Addins;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 // This line is not mandatory, but improves loading performances
 [assembly: CommandClass(typeof(AutoSwitchIME))]
 
-namespace eZcad.Addins
+namespace eZcad_AddinManager.Addins
 {
     /// <summary> 自动切换输入法 </summary>
     internal class AutoSwitchIME

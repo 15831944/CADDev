@@ -4,14 +4,16 @@ using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(SlopeEraser))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 将边坡对象清理为一般的边坡线，并删除其中所有与边坡相关的数据 </summary>
     [EcDescription(CommandDescription)]
@@ -28,9 +30,9 @@ namespace eZcad.RESD.Cmds
 
 
         /// <summary> 将边坡对象清理为一般的边坡线，并删除其中所有与边坡相关的数据 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription),
-         RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "EraseSlope_32.png")]
+         RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "EraseSlope_32.png")]
         public void EraseSlope()
         {
             DocumentModifier.ExecuteCommand(EraseSlope);
@@ -40,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SlopeEraser();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.EraseSlope,
+            return AddinManagerDebuger.DebugInAddinManager(s.EraseSlope,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

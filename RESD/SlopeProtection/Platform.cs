@@ -3,9 +3,10 @@ using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
 using eZcad.Utility;
+using RESD.SlopeProtection;
 using eZstd.Mathematics;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     /// <summary> 边坡平台 </summary>
     public class Platform : ISlopeSeg

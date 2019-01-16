@@ -8,7 +8,7 @@ using eZstd.MarshalReflection;
 using Microsoft.Win32;
 using Microsoft.Win32.SafeHandles;
 
-namespace eZcad.RESD
+namespace RESD.Register
 {
     public partial class CadAddinSetup : Form
     {

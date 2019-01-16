@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using eZcad.Utility;
+using RESD.SlopeProtection;
 using eZstd.Data;
 using Utils = eZstd.Miscellaneous.Utils;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     /// <summary> 边坡自动防护规则的设置与选择界面 </summary>
     public partial class AutoProtectionForm : FormOk

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     /// <summary> 用来对一个边坡进行防护方式强制设置的相关参数 </summary>
     public class ForceProtection

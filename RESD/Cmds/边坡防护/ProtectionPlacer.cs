@@ -6,15 +6,16 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.ParameterForm;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.ParameterForm;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(ProtectionPlacer))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     [EcDescription(CommandDescription)]
     public class ProtectionPlacer : ICADExCommand
@@ -29,9 +30,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"放置边坡防护的文字";
 
         /// <summary> 放置边坡防护的文字 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-            , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "PlaceProtection_32.png")]
+            , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "PlaceProtection_32.png")]
         public void PlaceProtection()
         {
             DocumentModifier.ExecuteCommand(PlaceProtection);
@@ -41,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new ProtectionPlacer();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.PlaceProtection,
+            return AddinManagerDebuger.DebugInAddinManager(s.PlaceProtection,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 
