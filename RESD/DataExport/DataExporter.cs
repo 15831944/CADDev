@@ -5,8 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
+using eZcad;
+using RESD.Entities;
+using RESD.Utility;
 using eZstd.MarshalReflection;
 using eZstd.Miscellaneous;
 using eZx_API.Entities;
@@ -15,7 +16,7 @@ using Application = Microsoft.Office.Interop.Excel.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 using Window = Microsoft.Office.Interop.Excel.Window;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 将AutoCAD中的相关工程量数据导出到 Excel 或者 文本中 </summary>
     public class DataExporter
@@ -305,7 +306,7 @@ namespace eZcad.RESD.DataExport
                     //
                     foreach (var tpInfo in sheet_Infos)
                     {
-                        var sht = SQUtils.GetOrCreateWorkSheet(wkbk, tpInfo.SheetName);
+                        var sht = eZcad.Utility.Utils.GetOrCreateWorkSheet(wkbk, tpInfo.SheetName);
                         if (sht != null)
                         {
                             RangeValueConverter.FillRange(sht, startRow: 1, startCol: 1, arr: tpInfo.Data,
@@ -368,7 +369,7 @@ namespace eZcad.RESD.DataExport
                     }
                     else
                     {
-                        excelApp = SQUtils.GetExcelApp(visible: false);
+                        excelApp = eZcad.Utility.Utils.GetExcelApp(visible: false);
                         // excelApp = new Application() { Visible = false };
                         wkbk = excelApp.Workbooks.Add();
                         wkbk.SaveAs(Filename: filePath, FileFormat: XlFileFormat.xlAddIn8);

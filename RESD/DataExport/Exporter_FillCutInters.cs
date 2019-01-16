@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 纵向填挖交界 </summary>
     public class Exporter_FillCutInters : DataExporter

@@ -7,7 +7,7 @@
     <ProjectGuid>{A70160DF-0AA8-4BD2-88B6-C8E34D870658}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eZcad.RESD</RootNamespace>
+    <RootNamespace>RESD</RootNamespace>
     <AssemblyName>RESD_Register</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -30,12 +30,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>eZcad.RESD.Register.Program</StartupObject>
+    <StartupObject>RESD.Register.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>ConstructSlopes_32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\eZstd\bin\eZstd.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -62,12 +66,6 @@
     <Compile Include="SQControls\ProtectionLister.designer.cs">
       <DependentUpon>ProtectionLister.cs</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\eZstd\Projects\eZstd\eZstd.csproj">
-      <Project>{FB9B6528-5424-4B7A-AEBA-6733450DC44B}</Project>
-      <Name>eZstd</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CadAddinSetup.resx">

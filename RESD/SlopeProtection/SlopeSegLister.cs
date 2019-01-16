@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.Utility;
+using RESD.Entities;
+using RESD.SlopeProtection;
 using eZstd.Data;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     public partial class SlopeSegLister : Form
     {

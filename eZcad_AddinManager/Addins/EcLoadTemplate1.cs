@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.Addins;
+using eZcad;
+using eZcad_AddinManager;
+using eZcad_AddinManager.Addins;
 using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 // This line is not mandatory, but improves loading performances
@@ -9,7 +11,7 @@ using Application = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 [assembly: CommandClass(typeof(EcLoadTemplate1))]
 
-namespace eZcad.Addins
+namespace eZcad_AddinManager.Addins
 {
     /// <summary> 自动切换输入法 </summary>
     internal class EcLoadTemplate1

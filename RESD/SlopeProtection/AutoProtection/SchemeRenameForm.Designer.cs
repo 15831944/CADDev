@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD.SlopeProtection
+﻿namespace RESD.SlopeProtection
 {
     partial class SchemeRenameForm
     {

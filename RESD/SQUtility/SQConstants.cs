@@ -1,34 +1,16 @@
 ﻿using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
 
-namespace eZcad.RESD.Utility
+namespace RESD.Utility
 {
     public static class SQConstants
     {
-
         /// <summary>
         /// 在另一个命令正在执行时，此命令是否可以被唤醒。
         /// Modal 表示当另一个命令正在执行时，此命令不能被唤醒；Transparent 表示当另外的命令激活时这个命令可以被使用。
         /// </summary>
         public const CommandFlags ModelState = CommandFlags.Transparent; // 从后面这两个可选项中选择一个： CommandFlags.Modal、CommandFlags.Transparent;
-
-        /// <summary> 打勾符号 </summary>
-        public const string CheckMark = @"√";
-
-        /// <summary> 路基工程量统计程序的简写标志符 </summary>
-        public const string RESDTag = "RESD";
-
-        /// <summary> 在<see cref="CommandMethodAttribute"/>中设置的外部命令的 GroupName。 </summary>
-        public const string eZGroupCommnad = RESDTag;
-
-        /// <summary>
-        /// 外部命令在 AutoCAD 界面中对应的控件的图片所在的文件夹。
-        /// 当引用某个图片文件时，直接通过“<seealso cref="ImageDirectory"/> + "picture.png"”即可
-        /// </summary>
-        /// <remarks>“.\”表示当前正在执行的程序集所在的文件夹，“..\”表示当前正在执行的程序集所在的文件夹</remarks>
-        public const string ImageDirectory = @"..\RESD\Resources\icons\";
-        // @"D:\GithubProjects\CADDev\RESD\Resources\icons\"; // @"..\RESD\Resources\icons\";
-
+ 
         /// <summary> 在界面中进行 Editor.Select 搜索时，对于重合的区域所给出的容差 </summary>
         public const double CoincideTolerance = 1e-6;
 

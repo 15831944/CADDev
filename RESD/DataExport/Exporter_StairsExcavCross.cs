@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 横向挖台阶工程量 </summary>
     public class Exporter_StairsExcavCross : DataExporter
@@ -157,8 +158,8 @@ namespace eZcad.RESD.DataExport
                     SQUtils.GetStationString(rg.BackValue.EdgeStation, rg.FrontValue.EdgeStation, 0),
                    rangeLength,
 
-                    (int) (rg.BackValue.StairCutSide & SectionSide.左) > 0 ? SQConstants.CheckMark : null,
-                    (int) (rg.BackValue.StairCutSide & SectionSide.右) > 0 ? SQConstants.CheckMark : null,
+                    (int) (rg.BackValue.StairCutSide & SectionSide.左) > 0 ? ACadConstants.CheckMark : null,
+                    (int) (rg.BackValue.StairCutSide & SectionSide.右) > 0 ? ACadConstants.CheckMark : null,
                     rg.BackValue.AverageTreatedWidth,
                     rg.BackValue.AverageStairArea * rangeLength,
                 });

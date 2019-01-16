@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using eZcad.AddinManager;
-using eZcad.RESD;
-using eZcad.RESD.Cmds;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
 
-namespace eZcad.SQcmds
+namespace RESD.SQcmds
 {
 
     #region ---   横断面系统
@@ -18,7 +18,7 @@ namespace eZcad.SQcmds
             ref IList<ObjectId> elementSet)
         {
             var s = new StationNavigator();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.NavigateStation,
+            return AddinManagerDebuger.DebugInAddinManager(s.NavigateStation,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
     }
@@ -34,7 +34,7 @@ namespace eZcad.SQcmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SlopeConstructor();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.ConstructSlopes,
+            return AddinManagerDebuger.DebugInAddinManager(s.ConstructSlopes,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
     }

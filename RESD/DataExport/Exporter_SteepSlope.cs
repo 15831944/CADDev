@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 陡坡路堤工程量 </summary>
     public class Exporter_SteepSlope : DataExporter
@@ -168,13 +169,13 @@ namespace eZcad.RESD.DataExport
                     rg.FrontValue.EdgeStation,
                     SQUtils.GetStationString(rg.BackValue.EdgeStation, rg.FrontValue.EdgeStation, maxDigits: 0),
                     // 挖台阶位置
-                    (rg.BackValue.Treatment & SectionSide.左)>0 ? SQConstants.CheckMark: null,
-                    (rg.BackValue.Treatment & SectionSide.右)>0 ? SQConstants.CheckMark:null,
+                    (rg.BackValue.Treatment & SectionSide.左)>0 ? ACadConstants.CheckMark: null,
+                    (rg.BackValue.Treatment & SectionSide.右)>0 ? ACadConstants.CheckMark:null,
                     // Enum.GetName(typeof (SectionSide), rg.BackValue.Treatment),
                     
                     // 土工格栅位置
-                     (rg.BackValue.Reinforcement & SectionSide.左)>0 ? SQConstants.CheckMark: null,
-                     (rg.BackValue.Reinforcement & SectionSide.右)>0 ? SQConstants.CheckMark:null,
+                     (rg.BackValue.Reinforcement & SectionSide.左)>0 ? ACadConstants.CheckMark: null,
+                     (rg.BackValue.Reinforcement & SectionSide.右)>0 ? ACadConstants.CheckMark:null,
                     // Enum.GetName(typeof (SectionSide), rg.BackValue.Reinforcement),
 
                     rangeLength,

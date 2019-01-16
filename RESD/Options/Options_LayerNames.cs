@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public static class Options_LayerNames
     {

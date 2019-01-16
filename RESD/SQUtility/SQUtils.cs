@@ -7,17 +7,17 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.Colors;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
+using eZcad;
 using eZcad.Utility;
-using Microsoft.Office.Interop.Excel;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Entities;
+using RESD.Options;
 using Application = Microsoft.Office.Interop.Excel.Application;
 using Line = Autodesk.AutoCAD.DatabaseServices.Line;
 using Windows = eZstd.API.Windows;
 
-namespace eZcad.RESD.Utility
+namespace RESD.Utility
 {
     /// <summary> 与边坡防护相关的一些通用性的操作 </summary>
     public static class SQUtils
@@ -245,100 +245,7 @@ namespace eZcad.RESD.Utility
         }
 
         #endregion
-
-        #region --- Excel 程序
-
-        private static Application _workingApp;
-
-        /// <summary> 获取全局的 Excel 程序 </summary>
-        /// <param name="visible"></param>
-        /// <returns>获取失败则返回 null</returns>
-        public static Application GetExcelApp(bool visible = false)
-        {
-            if (_workingApp != null)
-            {
-                var processId = 0;
-                var threadId = Windows.GetWindowThreadProcessId(_workingApp.Hwnd, ref processId);
-                var pr = Process.GetProcessById(processId);
-                if (pr == null || pr.HasExited)
-                {
-                    _workingApp = null;
-                }
-                else
-                {
-                    _workingApp.Visible = visible;
-                    return _workingApp;
-                }
-            }
-            if (_workingApp == null)
-            {
-                _workingApp = new Application { Visible = visible };
-            }
-            if (_workingApp == null)
-            {
-                throw new NullReferenceException($"无法打开 Excel 程序!");
-            }
-            return _workingApp;
-        }
-
-        /// <returns>成功则返回 true</returns>
-        public static bool KillActiveExcelApp(Application appToKill)
-        {
-            if (appToKill != null)
-            {
-                try
-                {
-                    // excelApp.Quit();
-                    var processId = 0;
-                    var threadId = Windows.GetWindowThreadProcessId(appToKill.Hwnd, ref processId);
-                    var pr = Process.GetProcessById(processId);
-                    pr.Kill();
-                    //
-                    if (appToKill.Equals(_workingApp))
-                    {
-                        _workingApp = null;
-                    }
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-
-        /// <summary> 通过匹配 Excel 工作表的名称来获取对应的表对象，如果想要的表不存在，则添加一个新的表 </summary>
-        /// <param name="wkbk"></param>
-        /// <param name="sheetName"></param>
-        /// <returns></returns>
-        public static Worksheet GetOrCreateWorkSheet(Workbook wkbk, string sheetName)
-        {
-            Worksheet matchedSheet = null;
-            foreach (var obj in wkbk.Worksheets)
-            {
-                var sht = obj as Worksheet;
-                if (sht != null && sht.Name.Equals(sheetName, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    matchedSheet = sht;
-                    sht.UsedRange.Clear();
-                    break;
-                }
-            }
-            if (matchedSheet == null)
-            {
-                matchedSheet = wkbk.Worksheets.Add();
-                matchedSheet.Name = sheetName;
-            }
-            // 将表格中的单元格解锁
-            matchedSheet.Cells.Locked = false;
-            matchedSheet.Cells.FormulaHidden = false;
-            //
-            return matchedSheet;
-        }
-
-        #endregion
-
+        
         #region --- 桩号处理
 
         private static readonly Regex StationReg = new Regex(@"K(\d+)\+(\d*.*)"); // K51+223.392
@@ -431,23 +338,6 @@ namespace eZcad.RESD.Utility
         }
 
         #endregion
-
-
-        /// <summary>
-        /// 同步发送命令
-        /// </summary>
-        /// <param name="command"></param>
-        public static void SendCommandSync(string command)
-        {
-            /*
-             使用SendStringToExecute()方法执行命令是异步的（同步是阻塞的，就是你做了这件事情，没做完就做不了别的事情了，异步就是做了做一件事情没做完，就可以去做别的事情了），直到.NET命令结束，所调用的AutoCAD命令才被执行。如果需要立即执行命令（同步），我们应该：
-             Commands executed with SendStringToExecute are asynchronous and are not invoked until the .NET command has ended. If you need to execute a command immediately (synchronously), you should:
-             	使用COM Automation库提供的acadDocument.SendCommand()方法。放心，.NET COM互操作程序集可以访问COM Automation库；
-             	对于AutoCAD本地命令，以及由ObjectARX或.NET API定义的命令，调用（P/Invoke）非托管的acedCommand()方法或acedCmd()方法；
-             	对于由AutoLISP定义的命令，调用（P/Invoke）非托管的acedInvoke()方法；             
-             */
-            AutoCAD.AcadApplication acadApp = Autodesk.AutoCAD.ApplicationServices.Application.AcadApplication as AutoCAD.AcadApplication;
-            acadApp.ActiveDocument.SendCommand(command);
-        }
+        
     }
 }

@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.AppSetup;
+using RESD.Entities;
+using RESD.Utility;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     /// <summary> 与每一种边坡防护形式的具体数据相关的标识 </summary>
     public class ProtectionTags
@@ -103,7 +105,7 @@ namespace eZcad.RESD.SlopeProtection
 
         private static string GetLayerNameFromProtection(string protectionName)
         {
-            return SQConstants.RESDTag + "_P_" + protectionName;
+            return AddinOptions.AddinTag + "_P_" + protectionName;
         }
 
         /// <summary> 提取数据库中所有的边坡防护图层。键表示 防护形式，值代表对应的 图层名，二者是一一对应的，值比键多个了字符前缀  </summary>
@@ -113,7 +115,7 @@ namespace eZcad.RESD.SlopeProtection
         {
             LayerTable layers = db.LayerTableId.GetObject(OpenMode.ForRead) as LayerTable;
             var protLayers = new Dictionary<string, string>();
-            const string prefix = SQConstants.RESDTag + "_P_";
+            const string prefix = AddinOptions.AddinTag + "_P_";
             foreach (var layerId in layers)
             {
                 var layerName = (layerId.GetObject(OpenMode.ForRead) as LayerTableRecord).Name;

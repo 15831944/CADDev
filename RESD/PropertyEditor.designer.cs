@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD
+﻿namespace RESD
 {
     partial class PropertyEditor
     {

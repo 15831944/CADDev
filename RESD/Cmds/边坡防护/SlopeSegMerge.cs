@@ -3,16 +3,18 @@ using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(SlopeSegMerge))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 将分割开的多个子边坡进行合并 </summary>
     [EcDescription(CommandDescription)]
@@ -28,10 +30,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"将分割开的多个子边坡进行合并";
 
         /// <summary> 将分割开的多个子边坡进行合并 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             SQConstants.ModelState | CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SegMerge_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SegMerge_32.png")]
         public void MergeSlopeSegs()
         {
             DocumentModifier.ExecuteCommand(MergeSlopeSegs);
@@ -41,7 +43,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SlopeSegMerge();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.MergeSlopeSegs,
+            return AddinManagerDebuger.DebugInAddinManager(s.MergeSlopeSegs,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

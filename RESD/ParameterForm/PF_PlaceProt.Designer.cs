@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     partial class PF_PlaceProt
     {
@@ -55,7 +55,7 @@ namespace eZcad.RESD.ParameterForm
             this.label4 = new System.Windows.Forms.Label();
             this.checkBox_ChooseRangeOnUI = new System.Windows.Forms.CheckBox();
             this.button_PlaceProtections = new System.Windows.Forms.Button();
-            this.protectionLister1 = new eZcad.RESD.Controls.ItemLister();
+            this.protectionLister1 = new RESD.Controls.ItemLister();
             this.groupBox_fillcut.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();

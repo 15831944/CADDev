@@ -6,14 +6,15 @@ using System.Windows;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Options;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Cmds;
+using RESD.Options;
+using RESD.SlopeProtection;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 路基边坡线 </summary>
     public class SlopeLine

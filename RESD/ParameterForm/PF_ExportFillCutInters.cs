@@ -6,11 +6,12 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
+using eZcad;
 using eZcad.Utility;
+using RESD.DataExport;
+using RESD.Entities;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class PF_ExportFillCutInters : ModalPForm
     {

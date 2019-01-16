@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using eZstd.MarshalReflection;
 using Microsoft.Win32;
 
-namespace eZcad.RESD.Register
+namespace RESD.Register
 {
     class Program
     {

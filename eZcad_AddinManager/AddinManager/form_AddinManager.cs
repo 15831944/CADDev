@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using eZcad_AddinManager;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
-namespace eZcad.AddinManager
+namespace eZcad_AddinManager
 {
     internal partial class form_AddinManager : Form
     {

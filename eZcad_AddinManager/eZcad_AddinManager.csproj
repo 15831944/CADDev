@@ -79,11 +79,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  
-    <PropertyGroup>
+  <PropertyGroup>
     <ORDDirectory>D:\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\</ORDDirectory>
-  </PropertyGroup>  
-  
+  </PropertyGroup>
   <ItemGroup>
     <!--ACA References Begin-->
     <!--ACA Refences End-->
@@ -101,11 +99,26 @@
       <HintPath>$(ORDDirectory)acmgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="AdWindows">
+      <HintPath>..\..\..\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="eZcad, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\eZcad.dll</HintPath>
+    </Reference>
+    <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
+    </Reference>
     <Reference Include="Interop.AutoCAD">
       <HintPath>..\eZcad\obj\Debug\Interop.AutoCAD.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -128,8 +141,10 @@
     <EmbeddedResource Include="AddinManager\form_AddinManager.resx">
       <DependentUpon>form_AddinManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalBases\Utility\FormOk.resx">
-      <DependentUpon>FormOk.cs</DependentUpon>
+    <EmbeddedResource Include="AppSetup\myCommands.resx">
+      <DependentUpon>myCommands.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>myCommands.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -145,42 +160,34 @@
     <Compile Include="Addins\EcLoadTemplate1.cs" />
     <Compile Include="Addins\CmdDuplicatesFinder.cs" />
     <Compile Include="Addins\MenuItemsLoader.cs" />
-    <Compile Include="GlobalBases\AddinManagerDebuger.cs" />
-    <Compile Include="GlobalBases\DocumentModifier.cs" />
-    <Compile Include="GlobalBases\Utility\aCadConstants.cs" />
-    <Compile Include="GlobalBases\Utility\AdvancedExtents3d.cs" />
-    <Compile Include="GlobalBases\Utility\CurrentEditState.cs" />
-    <Compile Include="GlobalBases\Utility\EntityArray2D.cs" />
-    <Compile Include="GlobalBases\Utility\ExtensionMethods.cs" />
-    <Compile Include="GlobalBases\Utility\eZConstants.cs" />
-    <Compile Include="GlobalBases\Utility\FormOk.cs">
+    <Compile Include="AppSetup\AddinOptions.cs" />
+    <Compile Include="AppSetup\AddinSetup.cs" />
+    <Compile Include="AppSetup\myCommands.cs" />
+    <Compile Include="AppSetup\myCommands.Designer.cs">
+      <DependentUpon>myCommands.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="AppSetup\RibbonButtonAttribute.cs" />
+    <Compile Include="AddinManager\AddinManagerDebuger.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\AddinManagerAssembly.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\AssemblyInfoDllManager.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\AssemblyInfoFileManager.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\AssemblyInfos.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\AssemblyInfoSettings.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\BinarySerializer.cs" />
+    <Compile Include="AddinManager\AssemblyInfo\StringSerializer.cs" />
+    <Compile Include="AddinManager\AssemblyLoader\AssemblyLoader.cs" />
+    <Compile Include="AddinManager\AssemblyLoader\AssemblySelectorForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GlobalBases\Utility\LayoutUtil.cs" />
-    <Compile Include="GlobalBases\Utility\SolidUtils.cs" />
-    <Compile Include="GlobalBases\Utility\TextUtils.cs" />
-    <Compile Include="GlobalBases\Utility\SymbolTableUtils.cs" />
-    <Compile Include="GlobalBases\Utility\Utils.cs" />
-    <Compile Include="AssemblyInfo\AddinManagerAssembly.cs" />
-    <Compile Include="AssemblyInfo\AssemblyInfoDllManager.cs" />
-    <Compile Include="AssemblyInfo\AssemblyInfoFileManager.cs" />
-    <Compile Include="AssemblyInfo\AssemblyInfos.cs" />
-    <Compile Include="AssemblyInfo\AssemblyInfoSettings.cs" />
-    <Compile Include="AssemblyInfo\BinarySerializer.cs" />
-    <Compile Include="AssemblyInfo\StringSerializer.cs" />
-    <Compile Include="AssemblyLoader\AssemblyLoader.cs" />
-    <Compile Include="AssemblyLoader\AssemblySelectorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AssemblyLoader\eZAssemblyLoader.cs" />
-    <Compile Include="AssemblyLoader\FileUtils.cs" />
+    <Compile Include="AddinManager\AssemblyLoader\eZAssemblyLoader.cs" />
+    <Compile Include="AddinManager\AssemblyLoader\FileUtils.cs" />
     <Compile Include="cmd_AddinManagerLoader.cs" />
-    <Compile Include="ExternalCommand\ExCommandExecutor.cs" />
-    <Compile Include="ExternalCommand\ExCommandFinder.cs" />
-    <Compile Include="ExternalCommand\ICADExCommand.cs" />
-    <Compile Include="myPlugin.cs" />
+    <Compile Include="AddinManager\ExternalCommand\ExCommandExecutor.cs" />
+    <Compile Include="AddinManager\ExternalCommand\ExCommandFinder.cs" />
+    <Compile Include="AddinManager\ExternalCommand\ICADExCommand.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GlobalBases\Utility\ViewportUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -204,7 +211,6 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

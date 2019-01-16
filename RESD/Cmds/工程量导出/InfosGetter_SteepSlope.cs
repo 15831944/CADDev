@@ -4,16 +4,17 @@ using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(InfosGetter_SteepSlope))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 对于横断面坡度过陡的断面进行判断，并设置土工格栅 </summary>
     [EcDescription(CommandDescription)]
@@ -28,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"对于横断面坡度过陡的断面进行判断，并设置土工格栅";
 
         /// <summary> 对于横断面坡度过陡的断面进行判断，并设置土工格栅 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SteepSlope_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SteepSlope_32.png")]
         public void SteepSlope()
         {
             DocumentModifier.ExecuteCommand(SteepSlope);
@@ -41,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new InfosGetter_SteepSlope();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.SteepSlope,
+            return AddinManagerDebuger.DebugInAddinManager(s.SteepSlope,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

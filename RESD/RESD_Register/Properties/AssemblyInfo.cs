@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Controls")]
+[assembly: AssemblyTitle("RESD_Register")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a70160df-0aa8-4bd2-88b6-c8e34d870658")]
+[assembly: Guid("3b2f183a-e105-4ec4-8a05-052f669171bf")]
 
 // Version information for an assembly consists of the following four values:
 //

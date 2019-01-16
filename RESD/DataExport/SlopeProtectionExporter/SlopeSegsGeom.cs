@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
+using RESD.Entities;
+using RESD.SlopeProtection;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 在两个相邻的边坡之间计算其每一个子边坡所占的宽度与几何面积。
     /// 计算算法为将两个断面的边坡构造为一个二维的几何模型。 </summary>

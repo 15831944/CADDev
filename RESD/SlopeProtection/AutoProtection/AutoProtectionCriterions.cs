@@ -3,7 +3,7 @@ using System.Text;
 using System.Xml.Serialization;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     public enum Index
     {

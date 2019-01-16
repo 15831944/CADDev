@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using Autodesk.AutoCAD.Geometry;
+using eZcad;
 using eZcad.Utility;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 由道路中桩设计线与其对应的自然地面线所组成的纵断面图 </summary>
     public class LongitudinalSection

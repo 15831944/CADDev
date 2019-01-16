@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using eZcad;
 using eZcad.Utility;
+using RESD.Options;
 using eZstd.Data;
 using Utils = eZstd.Miscellaneous.Utils;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     /// <summary> 路基工程量计算的总选项设置 </summary>
     public partial class Form_CriterionEditor : FormOk

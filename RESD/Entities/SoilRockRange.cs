@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.RESD.Entities;
+using RESD.Entities;
 
 [assembly: CommandClass(typeof(SoilRockRange))]
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     public enum SubgradeType : short
     {

@@ -7,7 +7,7 @@
     <ProjectGuid>{9F3B3C1D-DCD2-4E9C-9FE1-8CE3EA7BB160}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>eZcad.RESD</RootNamespace>
+    <RootNamespace>RESD</RootNamespace>
     <AssemblyName>RESD</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -38,7 +38,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\bin\RESD.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -53,30 +54,13 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ApplicationSetup\SQAddinManagerDebuger.cs" />
-    <Compile Include="ApplicationSetup\AddinSetup.cs" />
-    <Compile Include="ApplicationSetup\ApplicationSetup.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ApplicationSetup\ApplicationSetup.Designer.cs">
-      <DependentUpon>ApplicationSetup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ApplicationSetup\DllActivator_SubgradeQuantity.cs" />
-    <Compile Include="ApplicationSetup\RibbonButtonAttribute.cs" />
+    <Compile Include="AppSetup\AddinManagerDebuger.cs" />
+    <Compile Include="AppSetup\AddinOptions.cs" />
+    <Compile Include="AppSetup\AddinSetup.cs" />
+    <Compile Include="AppSetup\DllActivator_RESD.cs" />
     <Compile Include="Cmds\Ec_DebugTemplate.cs" />
     <Compile Include="Cmds\Ec_SubgradeQuantity.cs" />
     <Compile Include="Cmds\ProjectInfos.cs" />
-    <Compile Include="Cmds\Tools\BlockRefEditor\AttriBlock.cs" />
-    <Compile Include="Cmds\Tools\BlockRefEditor\BlockRefEditor.cs" />
-    <Compile Include="Cmds\Tools\BlockRefEditor\BlockRefEditorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cmds\Tools\BlockRefEditor\BlockRefEditorForm.Designer.cs">
-      <DependentUpon>BlockRefEditorForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cmds\Tools\BlockRefEditor\SortColumnCollection.cs" />
-    <Compile Include="Cmds\Tools\PolylineVerterxesExtracter.cs" />
-    <Compile Include="Cmds\Tools\ClosedAreaSumup.cs" />
     <Compile Include="Cmds\工程量导出\CriterionEditor.cs" />
     <Compile Include="Cmds\工程量导出\InfosGetter_FillCutInters.cs" />
     <Compile Include="Cmds\工程量导出\InfosGetter_HighFill.cs" />
@@ -240,12 +224,6 @@
     </Compile>
     <Compile Include="SQUtility\SQConstants.cs" />
     <Compile Include="SQUtility\SQUtils.cs" />
-    <EmbeddedResource Include="ApplicationSetup\ApplicationSetup.resx">
-      <DependentUpon>ApplicationSetup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cmds\Tools\BlockRefEditor\BlockRefEditorForm.resx">
-      <DependentUpon>BlockRefEditorForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Options\Form_CriterionEditor.resx">
       <DependentUpon>Form_CriterionEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -349,10 +327,22 @@
       <HintPath>$(ORDDirectory)AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="eZcad, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\bin\eZcad.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="eZcad_AddinManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\bin\eZcad_AddinManager.dll</HintPath>
-      <Private>False</Private>
+    </Reference>
+    <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
+    </Reference>
+    <Reference Include="eZx_API, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\eZOffice\bin\eZx_API.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -412,20 +402,13 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\eZOffice\eZx_API\eZx_API.csproj">
-      <Project>{60bf7d52-330a-4ed2-9632-4efb8fb6f231}</Project>
-      <Name>eZx_API</Name>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\..\eZstd\Projects\eZstd\eZstd.csproj">
-      <Project>{fb9b6528-5424-4b7a-aeba-6733450dc44b}</Project>
-      <Name>eZstd</Name>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="RESD_Register\RESD_Register.csproj">
       <Project>{a70160df-0aa8-4bd2-88b6-c8e34d870658}</Project>
       <Name>RESD_Register</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Cmds\Tools\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

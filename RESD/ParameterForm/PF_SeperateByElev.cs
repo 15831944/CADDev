@@ -5,13 +5,15 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.ParameterForm;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class PF_SeperateByElev : ModalPForm
     {
@@ -87,7 +89,7 @@ namespace eZcad.RESD.ParameterForm
 
             //
             //var layer_Slope = Utils.GetOrCreateLayer(docMdf, ProtectionConstants.LayerName_ProtectionMethod_Slope);
-            var layer_WaterLine = eZcad.RESD.Utility.SQUtils.GetOrCreateLayer_WaterLine(docMdf);
+            var layer_WaterLine = RESD.Utility.SQUtils.GetOrCreateLayer_WaterLine(docMdf);
             //var layer_Platform = Utils.GetOrCreateLayer(docMdf, ProtectionConstants.LayerName_ProtectionMethod_Platform);
             var es = EditStateIdentifier.GetCurrentEditState(docMdf);
             es.CurrentBTR.UpgradeOpen();

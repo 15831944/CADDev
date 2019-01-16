@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 整条道路中所有的横断面 </summary>
     public class AllStations

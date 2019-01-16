@@ -2,10 +2,10 @@
 using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.Utility;
+using RESD.SlopeProtection;
 using eZstd.Mathematics;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     /// <summary> 每一级边坡的信息 </summary>
     public class Slope : ISlopeSeg
@@ -108,7 +108,7 @@ namespace eZcad.RESD.SlopeProtection
                 // 用户设置的数据
                 pf.ProtectionMethod = (string)buffs[3].Value;
                 pf.ProtectionLength = (double)buffs[4].Value;
-                pf.ProtectionMethodText = Utils.ConvertToHandle(buffs[5].Value.ToString());
+                pf.ProtectionMethodText = eZcad.Utility.Utils.ConvertToHandle(buffs[5].Value.ToString());
 
                 // 在XData中，无法记录 Vector3d 类型的数据，只能用 Point3d 进行转换
                 return pf;

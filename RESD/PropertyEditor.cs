@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
-using eZcad.RESD.Entities;
 using eZcad.Utility;
+using RESD.Entities;
 
-namespace eZcad.RESD
+namespace RESD
 {
     /// <summary> 参数信息的添加或者对已有参数文件的编辑 </summary>
     /// <typeparam name="T"></typeparam>

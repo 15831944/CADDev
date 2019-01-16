@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD
+﻿namespace RESD.Register
 {
     partial class CadAddinSetup
     {

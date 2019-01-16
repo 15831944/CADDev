@@ -9,17 +9,19 @@ using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.Utility;
 using eZstd.Enumerable;
+using RESD.AppSetup;
 using Exception = System.Exception;
 
 [assembly: CommandClass(typeof(LongitudinalSectionDrawer))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 沿着道路纵向绘制边坡线 </summary>
     [EcDescription("沿着道路纵向绘制边坡线")]
@@ -35,9 +37,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"沿着道路纵向绘制边坡线与挡墙";
 
         /// <summary> 沿着道路纵向绘制边坡线 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-            , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "LongitudinalSection_32.png")]
+            , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "LongitudinalSection_32.png")]
         public void LongitudinalSection()
         {
             DocumentModifier.ExecuteCommand(LongitudinalSection);
@@ -47,7 +49,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new LongitudinalSectionDrawer();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.LongitudinalSection,
+            return AddinManagerDebuger.DebugInAddinManager(s.LongitudinalSection,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

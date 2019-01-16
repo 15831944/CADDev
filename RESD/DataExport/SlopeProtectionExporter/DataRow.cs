@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using eZcad.RESD.Utility;
+using RESD.Utility;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     public partial class Exporter_SlopeProtection
     {

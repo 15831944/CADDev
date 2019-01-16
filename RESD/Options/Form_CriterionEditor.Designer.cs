@@ -1,6 +1,6 @@
 ﻿using eZstd.UserControls;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     partial class Form_CriterionEditor
     {

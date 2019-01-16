@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
 
     /// <summary> 可以进行合并的对象 </summary>

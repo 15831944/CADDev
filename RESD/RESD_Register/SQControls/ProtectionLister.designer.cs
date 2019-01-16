@@ -1,4 +1,4 @@
-﻿namespace eZcad.RESD.Controls
+﻿namespace RESD.Controls
 {
     partial class ItemLister
     {

@@ -1,4 +1,4 @@
-﻿namespace eZcad.AddinManager
+﻿namespace eZcad_AddinManager
 {
     partial class form_AddinManager
     {

@@ -4,16 +4,17 @@ using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(InfosGetter_HighFill))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 提取并计算边坡防护工程量 </summary>
     [EcDescription(CommandDescription)]
@@ -28,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"提取高填深挖工程数量表";
 
         /// <summary> 按标高将边坡对象进行分割，以实现同一级边坡中分别设置不同的防护形式 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "HighFill_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "HighFill_32.png")]
         public void HighFillDeepCut()
         {
             DocumentModifier.ExecuteCommand(HighFillDeepCut);
@@ -41,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new InfosGetter_HighFill();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.HighFillDeepCut,
+            return AddinManagerDebuger.DebugInAddinManager(s.HighFillDeepCut,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

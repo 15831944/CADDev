@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
+using eZcad;
 using eZcad.Utility;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public partial class Form_ProjectInfos : FormOk
     {

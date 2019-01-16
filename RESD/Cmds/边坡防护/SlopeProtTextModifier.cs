@@ -5,14 +5,16 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.ParameterForm;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.ParameterForm;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof(SlopeProtTextModifier))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 对AutoCAD图形中与边坡防护相关的文字进行修改 </summary>
     [EcDescription(CommandDescription)]
@@ -27,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"对AutoCAD图形中与边坡防护相关的文字进行修改";
 
         /// <summary> 对AutoCAD图形中与边坡防护相关的文字进行修改 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor | CommandFlags.Redraw)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "DeleteProtection_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "DeleteProtection_32.png")]
         public void ModifySlopeProtText()
         {
             DocumentModifier.ExecuteCommand(ModifySlopeProtText);
@@ -40,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SlopeProtTextModifier();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.ModifySlopeProtText,
+            return AddinManagerDebuger.DebugInAddinManager(s.ModifySlopeProtText,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

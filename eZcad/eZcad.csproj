@@ -7,7 +7,7 @@
     </ProductVersion>
     <SchemaVersion>
     </SchemaVersion>
-    <ProjectGuid>{D1B63AC0-DF3E-4A1B-8471-0C6C1A8880DE}</ProjectGuid>
+    <ProjectGuid>{0B5104FC-8456-4D45-BA7B-2278BB090067}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>eZcad</RootNamespace>
@@ -33,7 +33,8 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +45,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>..\bin\eZcad.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -59,9 +61,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\bin\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\bin\eZcad.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\eZcad.xml</DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -79,10 +81,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
     <ORDDirectory>D:\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\</ORDDirectory>
   </PropertyGroup>
   <ItemGroup>
@@ -94,10 +92,6 @@
       <HintPath>$(ORDDirectory)accoremgd.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="AcCui">
-      <HintPath>$(ORDDirectory)AcCui.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="acdbmgd">
       <HintPath>$(ORDDirectory)acdbmgd.dll</HintPath>
       <Private>False</Private>
@@ -107,12 +101,12 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="AdWindows">
-      <HintPath>$(ORDDirectory)AdWindows.dll</HintPath>
+      <HintPath>..\..\..\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eZcad_AddinManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\eZcad_AddinManager\bin\Debug\eZcad_AddinManager.dll</HintPath>
+      <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
@@ -124,7 +118,6 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -138,115 +131,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Addins\Entities\AnnotationEntity.cs" />
-    <Compile Include="Addins\Entities\Ec_GetExtension.cs" />
-    <Compile Include="Addins\Entities\Ec_EntityAnnotationEditor.cs" />
-    <Compile Include="Addins\Geometry\PolylineRemesh2.cs" />
-    <Compile Include="Addins\LayoutViewport\Form_LayoutLister.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Addins\LayoutViewport\Form_LayoutLister.Designer.cs">
-      <DependentUpon>Form_LayoutLister.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Addins\Text\Ec_CentrolizedDimer.cs" />
-    <Compile Include="Addins\Text\Ec_TextRegexTool.cs" />
-    <Compile Include="Addins\Text\TextRegex.cs" />
-    <Compile Include="Debuger\eZcadAddinManagerDebuger.cs" />
-    <Compile Include="Examples\KeanExampleOnLayouts.cs" />
-    <Compile Include="Addins\LayoutViewport\LayoutLister.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Addins\Table\CopyColumns.cs" />
-    <Compile Include="Addins\Text\DbTextCenterAlign.cs" />
-    <Compile Include="Addins\Text\DbTextsFormator.cs" />
-    <Compile Include="Addins\CurveAreaSumup.cs" />
-    <Compile Include="Addins\Geometry\PolylineRemesh.cs" />
-    <Compile Include="Addins\Geometry\ReverseCurve.cs" />
-    <Compile Include="Addins\Geometry\PolyfaceToSubdmesh.cs" />
-    <Compile Include="Addins\EcLoadTemplate1.cs" />
-    <Compile Include="Addins\Dim\DimAlignment.cs" />
-    <Compile Include="Addins\Text\DBTextsToMText.cs" />
-    <Compile Include="Addins\Dim\DimTextScalor.cs" />
-    <Compile Include="Addins\Text\Ec_NumAdd.cs" />
-    <Compile Include="Addins\LayoutViewport\Ec_ViewportCreator.cs" />
-    <Compile Include="Debug\Ec_extractPoints.cs" />
-    <Compile Include="Examples\ViewportHandler.cs" />
-    <Compile Include="OnCode\BlockRefAttStyleEditor.cs" />
-    <Compile Include="OnCode\BlockAttStyleEditor.cs" />
-    <Compile Include="OnCode\TextStyles.cs" />
-    <Compile Include="Debug\Ec_GetThinedPolyline.cs" />
-    <Compile Include="Examples\DrawInUCS.cs" />
-    <Compile Include="Examples\UISetup1.cs" />
-    <Compile Include="Examples\UISetup2.cs" />
-    <Compile Include="Examples\SplineHandler.cs" />
-    <Compile Include="Addins\Text\Ec_TextScaler.cs" />
-    <Compile Include="Addins\SelSetIntersector.cs" />
-    <Compile Include="Debug\Ec_Boundary.cs" />
-    <Compile Include="Debug\Ec_SlopeStandards.cs" />
-    <Compile Include="Debug\Ec_ProxyEntity.cs" />
-    <Compile Include="Debug\Ec_GeoMesh.cs" />
-    <Compile Include="OnCode\DimStyles.cs" />
-    <Compile Include="Addins\HaveATry\Ec_intersectionFinder.cs" />
-    <Compile Include="Addins\HaveATry\IntersectionFinder.cs" />
-    <Compile Include="Addins\HaveATry\Item.cs" />
-    <Compile Include="Addins\RoadMileage.cs" />
-    <Compile Include="Addins\Geometry\PerpendicularLine.cs" />
-    <Compile Include="OnCode\ElevationPlacer.cs" />
-    <Compile Include="Addins\BlockRef\Ec_BlockRef.cs" />
-    <Compile Include="Addins\BlockRef\Ec_BlockRefField.cs" />
-    <Compile Include="Debug\Ec_RoadMileage.cs" />
-    <Compile Include="Addins\Ec_ShowClassName.cs" />
-    <Compile Include="Debug\PlaneTemplate.cs" />
-    <Compile Include="Examples\TextEditorHandler.cs" />
-    <Compile Include="Addins\RoadMileageRS.cs" />
-    <Compile Include="Examples\Overrule.cs" />
-    <Compile Include="Examples\Jig.cs" />
-    <Compile Include="Debug\Ec_EllipseToPolyLine.cs" />
-    <Compile Include="Debug\Ec_CircleToPolyLine.cs" />
-    <Compile Include="Debug\Ec_CutRegion.cs" />
-    <Compile Include="Debug\Ec_DebugTemplate.cs" />
-    <Compile Include="Debug\Ec_DrawPolyline.cs" />
-    <Compile Include="Debuger\DllActivator_eZcad.cs" />
-    <Compile Include="Examples\GraphicalElementsCreator.cs" />
-    <Compile Include="Examples\GraphicalElementsSelector.cs" />
-    <Compile Include="Examples\GraphicalElementsFilter.cs" />
-    <Compile Include="Examples\GraphicalElementsModifier.cs" />
-    <Compile Include="Examples\LayerHandler.cs" />
-    <Compile Include="Examples\SolidHandler.cs" />
-    <Compile Include="Examples\XRecords_ResultBuffer.cs" />
-    <Compile Include="Debuger\myCommands.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>myCommands.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Debuger\myPlugin.cs" />
-    <Compile Include="Debuger\myCommands.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Addins\Table\TableDataGetter.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Debuger\RibbonButtonAttribute.cs" />
+    <EmbeddedResource Include="Utility\FormOk.resx">
+      <DependentUpon>FormOk.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Addins\LayoutViewport\Form_LayoutLister.resx">
-      <DependentUpon>Form_LayoutLister.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Addins\LayoutViewport\LayoutLister.resx">
-      <DependentUpon>LayoutLister.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Debuger\myCommands.resx">
-      <DependentUpon>myCommands.cs</DependentUpon>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>myCommands.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
+    <Compile Include="DocumentModifier.cs" />
+    <Compile Include="Utility\aCadConstants.cs" />
+    <Compile Include="Utility\AdvancedExtents3d.cs" />
+    <Compile Include="Utility\CurrentEditState.cs" />
+    <Compile Include="Utility\EntityArray2D.cs" />
+    <Compile Include="Utility\ExtensionMethods.cs" />
+    <Compile Include="Utility\FormOk.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Utility\LayoutUtil.cs" />
+    <Compile Include="Utility\SelectUtils.cs" />
+    <Compile Include="Utility\SolidUtils.cs" />
+    <Compile Include="Utility\TextUtils.cs" />
+    <Compile Include="Utility\SymbolTableUtils.cs" />
+    <Compile Include="Utility\Utils.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utility\ViewportUtil.cs" />
+    <Compile Include="Utility\Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -289,22 +196,6 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\eZOffice\eZx_API\eZx_API.csproj">
-      <Project>{60bf7d52-330a-4ed2-9632-4efb8fb6f231}</Project>
-      <Name>eZx_API</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\eZstd\Projects\eZstd\eZstd.csproj">
-      <Project>{fb9b6528-5424-4b7a-aeba-6733450dc44b}</Project>
-      <Name>eZstd</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\RegexTips.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utility\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

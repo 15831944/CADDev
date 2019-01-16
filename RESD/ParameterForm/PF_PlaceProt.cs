@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.EditorInput;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Controls;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Options;
+using RESD.SlopeProtection;
+using RESD.Controls;
+using RESD.Utility;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     /// <summary>
     /// 在 AutoCAD 界面中直接对防护方式进行设置或修改

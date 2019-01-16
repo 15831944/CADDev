@@ -5,16 +5,16 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Options;
+using RESD.AppSetup;
+using RESD.Options;
+using RESD.Utility;
 
-[assembly: CommandClass(typeof(eZcad.RESD.Cmds.CriterionEditor))]
+[assembly: CommandClass(typeof(RESD.Cmds.CriterionEditor))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 路基工程量相关选项的设置 </summary>
     [EcDescription(CommandDescription)]
@@ -28,9 +28,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"路基工程量计算中，判断与计量的相关选项设置";
 
         /// <summary> 边坡防护的选项设置 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, SQConstants.ModelState | CommandFlags.UsePickSet)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SetOptions_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SetOptions_32.png")]
         public void EditCriterion()
         {
             DocumentModifier.ExecuteCommand(EditCriterion);
@@ -40,7 +40,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new CriterionEditor();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.EditCriterion,
+            return AddinManagerDebuger.DebugInAddinManager(s.EditCriterion,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

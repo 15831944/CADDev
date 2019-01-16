@@ -5,11 +5,11 @@ using System.Linq;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.UserControls;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     public partial class AutoProtectionForm
     {

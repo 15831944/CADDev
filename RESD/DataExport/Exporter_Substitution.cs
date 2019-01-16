@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary> 软基换填工程量 </summary>
     /// <remarks>对于填方路基，如果自然地表为淤泥等软弱土层，则需要对一定厚度内的基础进行换填等处理</remarks>
@@ -172,12 +173,14 @@ namespace eZcad.RESD.DataExport
             var centerDepth = center.CenterElevation_Road - center.CenterElevation_Ground;
 
             // 低填加固厚度
-            var thinFillTreatedDepth = _thinFillCriterion.低填处理高度 - (center.CenterElevation_Road - center.CenterElevation_Ground);
-            if (_softSubCriterion.换填厚度 - thinFillTreatedDepth < _softSubCriterion.最小换填厚度)
+            var thinFillTreatedDepth = _thinFillCriterion.低填处理高度 - centerDepth;
+            if ((centerDepth> _softSubCriterion.薄层厚度)
+                || (_softSubCriterion.换填厚度 - thinFillTreatedDepth < _softSubCriterion.最小换填厚度))
             {
                 // 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于此最小换填厚度"，则认为此断面应该计入D的换填厚度
                 return false;
             }
+        
 
             // 限制填方路基范围内的自然地面不能过陡，以过滤到陡坡路堤或者挖台阶时的重复处理
 

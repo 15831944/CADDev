@@ -7,12 +7,13 @@ using AutoCAD;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.Addins;
-using eZcad.Utility;
+using eZcad_AddinManager.Addins;
+using eZcad_AddinManager.AppSetup;
+using eZcad;
 
 [assembly: CommandClass(typeof(MenuItemsLoader))]
 
-namespace eZcad.Addins
+namespace eZcad_AddinManager.Addins
 {
     /// <summary> 加载程序集并添加对应菜单 </summary>
     internal class MenuItemsLoader
@@ -20,7 +21,7 @@ namespace eZcad.Addins
         #region --- 命令设计
 
         /// <summary> 将多个单行文字按其定位进行组合 </summary>
-        [CommandMethod(eZConstants.eZGroupCommnad, "LoadMenuItems", CommandFlags.Modal)]
+        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, "LoadMenuItems", CommandFlags.Modal)]
         public void EcLoadMenuItems()
         {
             DocumentModifier.ExecuteCommand(LoadMenuItems);
@@ -32,7 +33,7 @@ namespace eZcad.Addins
         public ExternalCmdResult LoadMenuItems(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
             string assPath = @"D:\ProgrammingCases\GitHubProjects\CADDev\bin\eZcad - 副本.dll";
-            string[] assPaths = Utils.ChooseOpenFile("选择要加载菜单的程序集", "程序集(*.dll; *.exe)| *.dll; *.exe",
+            string[] assPaths = eZcad.Utility.Utils.ChooseOpenFile("选择要加载菜单的程序集", "程序集(*.dll; *.exe)| *.dll; *.exe",
                 multiselect: false);
             if (assPaths == null)
             {
@@ -93,7 +94,7 @@ namespace eZcad.Addins
             var op = new PromptStringOptions("菜单名称")
             {
                 AllowSpaces = false,
-                DefaultValue = eZConstants.eZGroupCommnad,
+                DefaultValue = AddinOptions.eZcadToolsGroupCommnad,
                 UseDefaultValue = true,
             };
             var res = ed.GetString(op);
@@ -101,7 +102,7 @@ namespace eZcad.Addins
             {
                 return res.StringResult;
             }
-            return eZConstants.eZGroupCommnad;
+            return AddinOptions.eZcadToolsGroupCommnad;
         }
 
         private void AddMenus(AcadApplication app, string menuName, List<MethodInfo> methods)

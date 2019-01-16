@@ -8,11 +8,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AutoCADDev")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("AutoCAD")]
+[assembly: AssemblyDescription("AddinManager for developers to handle the test and debug.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SJTU")]
-[assembly: AssemblyProduct("AutoCADDev")]
+[assembly: AssemblyProduct("AutoCAD AddinManager")]
 [assembly: AssemblyCopyright("Copyright © SJTU 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -27,8 +27,8 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("2.0.0.0")]
+[assembly: AssemblyFileVersion("2.0.0.0")]
 
 // In order to sign your assembly you must specify a key to use. Refer to the 
 // Microsoft .NET Framework documentation for more information on assembly signing.
@@ -63,4 +63,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7a246044-c232-42b7-aa0d-ec24c44d72fb")]
+[assembly: Guid("23e3d4f1-0149-4475-9dcc-d07ab6ded86a")]

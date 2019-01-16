@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.RESD.Entities;
+using eZcad;
+using RESD.Entities;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class SectionsConstructorForm : Form
     {

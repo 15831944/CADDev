@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Autodesk.AutoCAD.DatabaseServices;
-using eZcad.RESD.Utility;
+using eZcad;
 using eZcad.Utility;
 
-namespace eZcad.RESD.Options
+namespace RESD.Options
 {
     public class DbXdata
     {

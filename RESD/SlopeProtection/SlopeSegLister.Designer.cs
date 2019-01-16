@@ -1,8 +1,8 @@
 ﻿
 using System.Windows.Forms;
-using eZcad.RESD.Entities;
+using RESD.Entities;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     partial class SlopeSegLister
     {

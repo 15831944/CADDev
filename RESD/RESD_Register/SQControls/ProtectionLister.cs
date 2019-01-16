@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace eZcad.RESD.Controls
+namespace RESD.Controls
 {
     public partial class ItemLister : UserControl
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using eZcad.RESD.Utility;
+using RESD.Utility;
 
-namespace eZcad.RESD.Entities
+namespace RESD.Entities
 {
     /// <summary> 某一个横断面桩号所对应的某种工程量数据 </summary>
     public class CrossSectionRange<T> where T : HalfValue

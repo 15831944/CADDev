@@ -3,14 +3,16 @@ using System.Linq;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Geometry;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
-using eZcad.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.Utility;
+using RESD.AppSetup;
 
 [assembly: CommandClass(typeof(StationNavigator))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary>
     /// 在 AutoCAD 界面中快速导航到指定的桩号
@@ -25,9 +27,9 @@ namespace eZcad.RESD.Cmds
         #region --- 命令设计
 
         /// <summary> 在 AutoCAD 界面中快速导航到指定的桩号 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet)
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
         , DisplayName(@"断面导航"), Description("在 AutoCAD 界面中快速导航到指定的桩号")
-            , RibbonItem(@"断面导航", "在 AutoCAD 界面中快速导航到指定的桩号", SQConstants.ImageDirectory + "Navigator_32.png")]
+            , RibbonItem(@"断面导航", "在 AutoCAD 界面中快速导航到指定的桩号", AddinOptions.ImageDirectory + "Navigator_32.png")]
         public void NavigateStation()
         {
             DocumentModifier.ExecuteCommand(NavigateStation);
@@ -77,7 +79,7 @@ namespace eZcad.RESD.Cmds
                        scaleAll: 1.2,
                      center: ext.MinPoint.Add((ext.MaxPoint - ext.MinPoint) / 2)));
 
-                    Utils.ShowExtentsInView(docMdf.acEditor, ext);
+                    eZcad.Utility.Utils.ShowExtentsInView(docMdf.acEditor, ext);
                 }
             }
             return ExternalCmdResult.Commit;

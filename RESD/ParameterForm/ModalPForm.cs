@@ -2,10 +2,11 @@
 using System.Windows.Forms;
 using Autodesk.AutoCAD.ApplicationServices;
 using Autodesk.AutoCAD.EditorInput;
+using eZcad;
 using eZcad.Utility;
 using Application = Autodesk.AutoCAD.ApplicationServices.Application;
 
-namespace eZcad.RESD.ParameterForm
+namespace RESD.ParameterForm
 {
     public partial class ModalPForm : Form
     {

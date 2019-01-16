@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Autodesk.AutoCAD.ApplicationServices;
-using eZcad.AddinManager;
+using eZcad_AddinManager;
 
-namespace eZcad.AddinManager
+namespace eZcad_AddinManager
 {
     /// <summary> AddinManager插件 的窗口加载、命令执行 </summary>
     internal class AddinManagerLoader

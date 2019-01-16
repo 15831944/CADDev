@@ -4,15 +4,17 @@ using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Options;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.Entities;
+using RESD.Options;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof (SectionWalker))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 查看指定的横断面的相关信息 </summary>
     [EcDescription(CommandDescription)]
@@ -28,9 +30,9 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"查看指定的横断面的相关信息";
 
         /// <summary> 查看指定的横断面的相关信息 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName, CommandFlags.UsePickSet),
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet),
          DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "SectionInfos_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "SectionInfos_32.png")]
         public void SectionWalk()
         {
             DocumentModifier.ExecuteCommand(SectionWalk);
@@ -40,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new SectionWalker();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.SectionWalk,
+            return AddinManagerDebuger.DebugInAddinManager(s.SectionWalk,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

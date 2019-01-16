@@ -4,15 +4,17 @@ using System.Linq;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.EditorInput;
 using Autodesk.AutoCAD.Runtime;
-using eZcad.AddinManager;
-using eZcad.RESD.Cmds;
-using eZcad.RESD.DataExport;
-using eZcad.RESD.Entities;
-using eZcad.RESD.Utility;
+using eZcad;
+using eZcad_AddinManager;
+using RESD.AppSetup;
+using RESD.Cmds;
+using RESD.DataExport;
+using RESD.Entities;
+using RESD.Utility;
 
 [assembly: CommandClass(typeof (InfosGetter_RoadSurface))]
 
-namespace eZcad.RESD.Cmds
+namespace RESD.Cmds
 {
     /// <summary> 对于横断面坡度过陡的断面进行判断，并设置土工格栅 </summary>
     [EcDescription(CommandDescription)]
@@ -27,10 +29,10 @@ namespace eZcad.RESD.Cmds
         private const string CommandDescription = @"路面工程数量表";
 
         /// <summary> 对于横断面坡度过陡的断面进行判断，并设置土工格栅 </summary>
-        [CommandMethod(SQConstants.eZGroupCommnad, CommandName,
+        [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, SQConstants.ImageDirectory + "RoadSurface_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "RoadSurface_32.png")]
         public void RoadSurface()
         {
             DocumentModifier.ExecuteCommand(RoadSurface);
@@ -40,7 +42,7 @@ namespace eZcad.RESD.Cmds
             ref IList<ObjectId> elementSet)
         {
             var s = new InfosGetter_RoadSurface();
-            return SQAddinManagerDebuger.DebugInAddinManager(s.RoadSurface,
+            return AddinManagerDebuger.DebugInAddinManager(s.RoadSurface,
                 impliedSelection, ref errorMessage, ref elementSet);
         }
 

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using eZcad.RESD.Entities;
-using eZcad.RESD.SlopeProtection;
-using eZcad.RESD.Utility;
+using eZcad;
+using RESD.Entities;
+using RESD.SlopeProtection;
+using RESD.Utility;
 using eZstd.Enumerable;
 
-namespace eZcad.RESD.DataExport
+namespace RESD.DataExport
 {
     /// <summary>
     /// 将AutoCAD中的与边坡防护相关的工程量数据导出到 Excel 或者 文本中

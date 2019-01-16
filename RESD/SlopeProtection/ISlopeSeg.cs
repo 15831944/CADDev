@@ -2,10 +2,9 @@
 using System.ComponentModel;
 using Autodesk.AutoCAD.DatabaseServices;
 using Autodesk.AutoCAD.Geometry;
-using eZcad.Utility;
 using eZstd.Mathematics;
 
-namespace eZcad.RESD.SlopeProtection
+namespace RESD.SlopeProtection
 {
     public enum SlopeSegType
     {
