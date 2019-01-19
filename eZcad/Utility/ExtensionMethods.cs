@@ -79,7 +79,7 @@ namespace eZcad.Utility
         /// <param name="btr">要进行提取的块定义</param>
         /// <param name="tag">要进行提取的块定义</param>
         /// <returns>如果未找到，则返回 null </returns>
-        public static AttributeDefinition GetAttributeDefinitions(this BlockTableRecord btr, string tag)
+        public static AttributeDefinition GetAttributeDefinition(this BlockTableRecord btr, string tag)
         {
             var attDefTp = RXObject.GetClass(typeof(AttributeDefinition));
 

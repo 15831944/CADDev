@@ -346,7 +346,7 @@ namespace eZcadDebuger.Examples
                 UpperLimit = (int)1e6,
                 //
                 AllowNegative = false,
-                AllowNone = false,
+                AllowNone = true, // true 表示允许用户直接按下回车或者右键，以退出 GetPoint() 方法，此时返回的 PromptPointResult.Status 为 None。
                 AllowZero = false,
                 AllowArbitraryInput = false
             };
@@ -360,7 +360,26 @@ namespace eZcadDebuger.Examples
             return 0;
         }
 
+        /// <summary> 在命令行中获取一个双精度浮点 </summary>
+        private static double? GetDouble(DocumentModifier docMdf, string msg)
+        {
+            var op = new PromptDoubleOptions(message: $"\n{msg}")
+            {
+                //
+                AllowNegative = true,
+                AllowNone = true, // true 表示允许用户直接按下回车或者右键，以退出 GetPoint() 方法，此时返回的 PromptPointResult.Status 为 None。
+                AllowZero = true,
+                AllowArbitraryInput = false
+            };
 
+            //
+            var res = docMdf.acEditor.GetDouble(op);
+            if (res.Status == PromptStatus.OK)
+            {
+                return res.Value;
+            }
+            return null;
+        }
 
         /// <summary> 在命令行中获取一个字符 </summary>
         /// <param name="value">成功获得的数值</param>

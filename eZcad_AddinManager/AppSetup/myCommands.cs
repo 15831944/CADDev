@@ -32,7 +32,7 @@ namespace eZcad_AddinManager
         // context menu.
 
         // Modal Command with localized name
-        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, "MyCommand", "MyCommandLocal", CommandFlags.Modal)]
+        [CommandMethod(AddinOptions.GroupCommnad, "MyCommand", "MyCommandLocal", CommandFlags.Modal)]
         public void MyCommand() // This method can have any name
         {
            // Put your command code here
@@ -40,7 +40,7 @@ namespace eZcad_AddinManager
         }
         
         // Modal Command with pickfirst selection
-        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, "MyPickFirst", "MyPickFirstLocal", CommandFlags.Modal | CommandFlags.UsePickSet)]
+        [CommandMethod(AddinOptions.GroupCommnad, "MyPickFirst", "MyPickFirstLocal", CommandFlags.Modal | CommandFlags.UsePickSet)]
         public void MyPickFirst() // This method can have any name
         {
             PromptSelectionResult result = Application.DocumentManager.MdiActiveDocument.Editor.GetSelection();
@@ -57,7 +57,7 @@ namespace eZcad_AddinManager
         }
 
         // Application Session Command with localized name
-        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, "MySessionCmd", "MySessionCmdLocal", CommandFlags.Modal | CommandFlags.Session)]
+        [CommandMethod(AddinOptions.GroupCommnad, "MySessionCmd", "MySessionCmdLocal", CommandFlags.Modal | CommandFlags.Session)]
         public void MySessionCmd() // This method can have any name
         {
             // Put your command code here

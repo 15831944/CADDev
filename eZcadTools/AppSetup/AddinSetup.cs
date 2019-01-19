@@ -8,7 +8,6 @@ using System.Windows.Media.Imaging;
 using AutoCAD;
 using Autodesk.AutoCAD.Runtime;
 using Autodesk.Windows;
-using eZcad_AddinManager.Addins;
 using eZcadTools.Addins;
 using eZcadTools.Addins.LayoutViewport;
 using eZcadTools.Addins.Text;
@@ -159,6 +158,10 @@ namespace eZcadTools.AppSetup
 
             var spltBtn4 = CreateSplitButton(pnl_Tools, "一般工具");
             AddButton(spltBtn4, method: typeof(PolylineVerterxesExtracter).GetMethod(PolylineVerterxesExtracter.CommandName, new Type[0]), size: RibbonItemSize.Large);
+
+            AddButton(pnl_Tools, method: typeof(PointElevationRecorder).GetMethod(PointElevationRecorder.CommandName, new Type[0]), size: RibbonItemSize.Large);
+
+            
             // ----------------------------- 选项设置 ----------------------------------------
             // var pnl_Settings = CreatePanel(ribTab, "设置");
         }

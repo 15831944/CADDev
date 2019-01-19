@@ -111,14 +111,6 @@
       <HintPath>$(ORDDirectory)AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eZcad, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\eZcad.dll</HintPath>
-    </Reference>
-    <Reference Include="eZcad_AddinManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\eZcad_AddinManager.dll</HintPath>
-    </Reference>
     <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
@@ -156,6 +148,7 @@
     <Compile Include="Addins\Entities\Ec_GetExtension.cs" />
     <Compile Include="Addins\Entities\Ec_EntityAnnotationEditor.cs" />
     <Compile Include="Addins\Geometry\PolylineRemesh2.cs" />
+    <Compile Include="Addins\PointElevationRecorder.cs" />
     <Compile Include="Examples\GraphicalElementsSelector.cs" />
     <Compile Include="Tools\BlockRefEditor\AttriBlock.cs" />
     <Compile Include="Tools\BlockRefEditor\BlockRefEditor.cs" />
@@ -290,7 +283,16 @@
   <ItemGroup>
     <None Include="Resources\RegexTips.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\eZcad\eZcad.csproj">
+      <Project>{0b5104fc-8456-4d45-ba7b-2278bb090067}</Project>
+      <Name>eZcad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eZcad_AddinManager\eZcad_AddinManager.csproj">
+      <Project>{835fa817-ebe4-4c2b-91d4-a6b945878105}</Project>
+      <Name>eZcad_AddinManager</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
