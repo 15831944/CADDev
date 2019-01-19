@@ -63,7 +63,7 @@ namespace eZcad_AddinManager
                 Debug.Print("AddinManager 插件加载时出错： \n\r" + ex.Message + "\n\r" + ex.StackTrace);
             }
             // 
-            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage($"{AddinOptions.TabId_AddinManager}程序加载成功\n");
+            Application.DocumentManager.MdiActiveDocument.Editor.WriteMessage($"{AddinOptions.TabId}程序加载成功\n");
         }
 
         /// <summary> 在Addin插件卸载过程中，是否已经将AddinManager窗口中的插件路径保存在mySettings中。 </summary>
@@ -95,7 +95,7 @@ namespace eZcad_AddinManager
 
         private static string IconDir = "";
         /// <summary> 打开工具选项卡界面所输入的命令 </summary>
-        private const string CmdStartRibbon = AddinOptions.eZcadToolsGroupCommnad + @"Ribbon";
+        private const string CmdStartRibbon = AddinOptions.GroupCommnad + @"Ribbon";
 
         private void InitializeComponent()
         {
@@ -109,7 +109,7 @@ namespace eZcad_AddinManager
         }
 
         /// <summary> 添加自定义功能区选项卡 </summary>
-        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, CmdStartRibbon, AddinOptions.ModelState)]
+        [CommandMethod(AddinOptions.GroupCommnad, CmdStartRibbon, AddinOptions.ModelState)]
         public void CreateRibbon()
         {
             AcadApplication acadApplication =
@@ -127,9 +127,9 @@ namespace eZcad_AddinManager
             // ribCntrl can also be RibbonServices.RibbonPaletteSet.RibbonControl, this class can be found in AcWindows.dll;  
 
             // 如果已经加载，则显示出来即可
-            var existingRibbonTab = ribCntrl.Tabs.FirstOrDefault(r => r.Id == AddinOptions.TabId_AddinManager
-                                                                      && r.Title == AddinOptions.TabTitle_AddinManager
-                                                                      && r.Name == AddinOptions.TabName_AddinManager);
+            var existingRibbonTab = ribCntrl.Tabs.FirstOrDefault(r => r.Id == AddinOptions.TabId
+                                                                      && r.Title == AddinOptions.TabTitle
+                                                                      && r.Name == AddinOptions.TabName);
 
             if (existingRibbonTab != null)
             {
@@ -144,9 +144,9 @@ namespace eZcad_AddinManager
                 //Add the tab
                 RibbonTab ribTab = new RibbonTab
                 {
-                    Title = AddinOptions.TabTitle_AddinManager,
-                    Id = AddinOptions.TabId_AddinManager,
-                    Name = AddinOptions.TabName_AddinManager
+                    Title = AddinOptions.TabTitle,
+                    Id = AddinOptions.TabId,
+                    Name = AddinOptions.TabName
                 };
                 ribCntrl.Tabs.Add(ribTab);
                 //
@@ -174,8 +174,7 @@ namespace eZcad_AddinManager
         private static void AddControls(RibbonTab ribTab)
         {
             // ----------------------------- 项目信息 ----------------------------------------
-            var pnl_Project = CreatePanel(ribTab, "项目信息");
-            //AddButton(pnl_Project, method: typeof(TextScaler).GetMethod(TextScaler.CommandName, new Type[0]), size: RibbonItemSize.Large);
+            var pnl_Project = CreatePanel(ribTab, "工具");
             // var pnl_Settings = CreatePanel(ribTab, "设置");
         }
 

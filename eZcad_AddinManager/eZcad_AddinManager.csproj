@@ -103,10 +103,6 @@
       <HintPath>..\..\..\Softwares\Civil Engineering\Autodesk\AutoCAD 2014\AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eZcad, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\eZcad.dll</HintPath>
-    </Reference>
     <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
@@ -210,6 +206,12 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\eZcad\eZcad.csproj">
+      <Project>{0b5104fc-8456-4d45-ba7b-2278bb090067}</Project>
+      <Name>eZcad</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

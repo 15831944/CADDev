@@ -21,7 +21,7 @@ namespace eZcad_AddinManager.Addins
         #region --- 命令设计
 
         /// <summary> 将多个单行文字按其定位进行组合 </summary>
-        [CommandMethod(AddinOptions.eZcadToolsGroupCommnad, "LoadMenuItems", CommandFlags.Modal)]
+        [CommandMethod(AddinOptions.GroupCommnad, "LoadMenuItems", CommandFlags.Modal)]
         public void EcLoadMenuItems()
         {
             DocumentModifier.ExecuteCommand(LoadMenuItems);
@@ -94,7 +94,7 @@ namespace eZcad_AddinManager.Addins
             var op = new PromptStringOptions("菜单名称")
             {
                 AllowSpaces = false,
-                DefaultValue = AddinOptions.eZcadToolsGroupCommnad,
+                DefaultValue = AddinOptions.GroupCommnad,
                 UseDefaultValue = true,
             };
             var res = ed.GetString(op);
@@ -102,7 +102,7 @@ namespace eZcad_AddinManager.Addins
             {
                 return res.StringResult;
             }
-            return AddinOptions.eZcadToolsGroupCommnad;
+            return AddinOptions.GroupCommnad;
         }
 
         private void AddMenus(AcadApplication app, string menuName, List<MethodInfo> methods)

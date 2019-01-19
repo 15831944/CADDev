@@ -327,15 +327,6 @@
       <HintPath>$(ORDDirectory)AdWindows.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="eZcad, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\eZcad.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="eZcad_AddinManager, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\bin\eZcad_AddinManager.dll</HintPath>
-    </Reference>
     <Reference Include="eZstd, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\eZstd\bin\eZstd.dll</HintPath>
@@ -402,6 +393,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\eZcad\eZcad.csproj">
+      <Project>{0b5104fc-8456-4d45-ba7b-2278bb090067}</Project>
+      <Name>eZcad</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\eZcad_AddinManager\eZcad_AddinManager.csproj">
+      <Project>{835fa817-ebe4-4c2b-91d4-a6b945878105}</Project>
+      <Name>eZcad_AddinManager</Name>
+    </ProjectReference>
     <ProjectReference Include="RESD_Register\RESD_Register.csproj">
       <Project>{a70160df-0aa8-4bd2-88b6-c8e34d870658}</Project>
       <Name>RESD_Register</Name>
