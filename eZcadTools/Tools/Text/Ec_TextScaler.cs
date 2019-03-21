@@ -7,8 +7,6 @@ using Autodesk.AutoCAD.Runtime;
 using eZcad;
 using eZcadTools.Addins.Text;
 using eZcadTools.AppSetup;
-using eZcadTools.Debug;
-using eZcadTools.Utility;
 using eZcad_AddinManager;
 using AddinOptions = eZcadTools.AppSetup.AddinOptions;
 
@@ -35,7 +33,7 @@ namespace eZcadTools.Addins.Text
         [CommandMethod(AddinOptions.GroupCommnad, CommandName,
             CommandFlags.Interruptible | CommandFlags.UsePickSet | CommandFlags.NoBlockEditor)
         , DisplayName(CommandText), Description(CommandDescription)
-        , RibbonItem(CommandText, CommandDescription, AddinOptions.CmdImageDirectory + "HighFill_32.png")]
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.CmdImageDirectory + "文字缩放_32.png")]
         public void ScaleText()
         {
             DocumentModifier.ExecuteCommand(ScaleText);

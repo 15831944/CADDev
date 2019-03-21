@@ -207,7 +207,11 @@ namespace eZcadTools.Addins
             Point3d[] points, double[] elevations)
         {
             AttributeDefinition attDef = blockDef.GetAttributeDefinition(BlockAttributeName);
-
+            if (attDef == null)
+            {
+                docMdf.WriteNow($"未找到块定义中的属性“{BlockAttributeName}”");
+                return;
+            }
             for (int i = 0; i < points.Length; i++)
             {
                 Point3d pos = new Point3d(points[i].X, points[i].Y, elevations[i]);
@@ -215,7 +219,8 @@ namespace eZcadTools.Addins
             }
         }
 
-        private BlockReference CreateBlockRef(DocumentModifier docMdf, BlockTableRecord space, BlockTableRecord blockDef, AttributeDefinition attDef,
+        private BlockReference CreateBlockRef(DocumentModifier docMdf, BlockTableRecord space, BlockTableRecord blockDef,
+            AttributeDefinition attDef,
             Point3d position)
         {
             BlockReference bref = new BlockReference(position, blockDef.Id);

@@ -125,7 +125,7 @@ namespace RESD.DataExport
 
             // 将结果整理为二维数组，用来进行表格输出
             var rows = new List<object[]>();
-            var header = new string[] { "起始桩号", "结束桩号", "桩号区间", "长度", "处理措施", "换填表面积",};
+            var header = new string[] { "起始桩号", "结束桩号", "桩号区间", "长度", "处理措施", "换填表面积", };
             rows.Add(header);
 
             for (int i = 0; i < softSubSections.Count; i++)
@@ -174,13 +174,12 @@ namespace RESD.DataExport
 
             // 低填加固厚度
             var thinFillTreatedDepth = _thinFillCriterion.低填处理高度 - centerDepth;
-            if ((centerDepth> _softSubCriterion.薄层厚度)
-                || (_softSubCriterion.换填厚度 - thinFillTreatedDepth < _softSubCriterion.最小换填厚度))
+            if ((_softSubCriterion.换填厚度D - thinFillTreatedDepth < _softSubCriterion.最小换填厚度))
             {
                 // 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于此最小换填厚度"，则认为此断面应该计入D的换填厚度
                 return false;
             }
-        
+
 
             // 限制填方路基范围内的自然地面不能过陡，以过滤到陡坡路堤或者挖台阶时的重复处理
 

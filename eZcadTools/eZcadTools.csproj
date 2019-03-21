@@ -62,7 +62,8 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\bin\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>..\bin\eZcadTools.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -148,7 +149,7 @@
     <Compile Include="Addins\Entities\Ec_GetExtension.cs" />
     <Compile Include="Addins\Entities\Ec_EntityAnnotationEditor.cs" />
     <Compile Include="Addins\Geometry\PolylineRemesh2.cs" />
-    <Compile Include="Addins\PointElevationRecorder.cs" />
+    <Compile Include="Tools\PointElevationRecorder.cs" />
     <Compile Include="Examples\GraphicalElementsSelector.cs" />
     <Compile Include="Tools\BlockRefEditor\AttriBlock.cs" />
     <Compile Include="Tools\BlockRefEditor\BlockRefEditor.cs" />

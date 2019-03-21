@@ -19,7 +19,8 @@ namespace RESD.Cmds
     /// <summary>
     /// 创建边坡并设置每一个边坡的数据
     /// </summary>
-    public class SlopeConstructor
+    [EcDescription(CommandDescription)]
+    public class SlopeConstructor : ICADExCommand
     {
         private DocumentModifier _docMdf;
 
@@ -27,15 +28,25 @@ namespace RESD.Cmds
 
         /// <summary> 命令行命令名称，同时亦作为命令语句所对应的C#代码中的函数的名称 </summary>
         public const string CommandName = "ConstructSlopes";
+        private const string CommandText = @"创建边坡";
+        private const string CommandDescription = @"创建边坡并设置每一个边坡的数据";
 
         /// <summary> 创建边坡并设置每一个边坡的数据 </summary>
         [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
-        , DisplayName(@"创建边坡"), Description("创建边坡并设置每一个边坡的数据")
-        , RibbonItem(@"创建边坡", "创建边坡并设置每一个边坡的数据", AddinOptions.ImageDirectory + "ConstructSlopes_32.png")]
+        , DisplayName(CommandText), Description(CommandDescription)
+        , RibbonItem(CommandText, CommandDescription, AddinOptions.ImageDirectory + "ConstructSlopes_32.png")]
         public void ConstructSlopes()
         {
             DocumentModifier.ExecuteCommand(ConstructSlopes);
         }
+
+        public ExternalCommandResult Execute(SelectionSet impliedSelection, ref string errorMessage, ref IList<ObjectId> elementSet)
+        {
+            var s = new SlopeConstructor();
+            return AddinManagerDebuger.DebugInAddinManager(s.ConstructSlopes,
+                impliedSelection, ref errorMessage, ref elementSet);
+        }
+        #endregion
 
         /// <summary> 创建边坡并设置每一个边坡的数据 </summary>
         public ExternalCmdResult ConstructSlopes(DocumentModifier docMdf, SelectionSet impliedSelection)
@@ -50,8 +61,6 @@ namespace RESD.Cmds
             }
             return ExternalCmdResult.Commit;
         }
-
-        #endregion
 
         /// <summary> 是要添加边坡线 还是 对已有边坡线进行修改 </summary>
         private static bool ModifyOrAdd(Editor ed)

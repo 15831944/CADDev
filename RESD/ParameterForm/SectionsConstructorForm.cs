@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autodesk.AutoCAD.DatabaseServices;
@@ -18,31 +14,50 @@ namespace RESD.ParameterForm
     {
         private readonly DocumentModifier _docMdf;
         private readonly IList<Line> _centerLines;
+
+        /// <summary>
+        /// 能否在非UI线程中执行Editor.Select类方法
+        /// </summary>
+        /// <remarks>经测试，在AutoCAD 2014中，利用 System.ComponentModel.BackgroundWorker 在非UI线程中可以执行与AutoCAD计算相关的操作，
+        /// 但是无法执行 Editor.SelectCrossingWindow() 方法（或SelectAll等与AutoCAD 界面相关方法，
+        /// 执行到此类方法时，会直接退出此线程，并切换到主线程上的 backgroundWorker1_RunWorkerCompleted() 方法体内），
+        /// 但是在 AutoCAD 2016中可以在非UI线程中执行Select类方法。</remarks>
+        private const bool _supportUIInWorkthread = false;
+
         /// <summary> 成功构造的横断面 </summary>
         public List<SubgradeSection> SectionAxes { get; private set; }
 
         public SectionsConstructorForm(DocumentModifier docMdf, IList<Line> centerLines)
         {
-
             InitializeComponent();
-            //   //
+
+            //
             _docMdf = docMdf;
             SectionAxes = new List<SubgradeSection>();
             _centerLines = centerLines;
             _count = centerLines.Count;
-            // 事件绑定
-            bgw_secConstructor.DoWork += ConstructSections_DoWork;
-            bgw_secConstructor.ProgressChanged += backgroundWorker1_ProgressChanged;
-            bgw_secConstructor.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+            if (_supportUIInWorkthread)
+            {
+                // 事件绑定
+                bgw_secConstructor.DoWork += ConstructSections_DoWork;
+                bgw_secConstructor.ProgressChanged += backgroundWorker1_ProgressChanged;
+                bgw_secConstructor.RunWorkerCompleted += backgroundWorker1_RunWorkerCompleted;
+            }
         }
-
-
 
         #region ---   线程的启动与取消
 
         private void SectionsConstructorForm_Load(object sender, EventArgs e)
         {
-            StartBackThread();
+            if (_supportUIInWorkthread)
+            {
+                StartBackThread();
+            }
+            else
+            {
+                ConstructSections_DoWork(null, null);
+                backgroundWorker1_RunWorkerCompleted(null, null);
+            }
         }
 
         private void StartBackThread()
@@ -67,7 +82,6 @@ namespace RESD.ParameterForm
         }
 
         #endregion
-
 
         private readonly int _count;
 
@@ -105,7 +119,10 @@ namespace RESD.ParameterForm
                     errorCenterLine.Add(axis, errorMsg);
                 }
                 // 显示进度
-                worker.ReportProgress(i);
+                if (_supportUIInWorkthread)
+                {
+                    worker.ReportProgress(i);
+                }
             }
             // 列出出错的断面
             if (errorCenterLine.Count > 0)
@@ -146,18 +163,6 @@ namespace RESD.ParameterForm
             label1.Dock = DockStyle.Fill;
             label1.Text = s;
             label2.Text = "";
-            //if (e.Cancelled == true)
-            //{
-            //    resultLabel.Text = "Canceled!";
-            //}
-            //else if (e.Error != null)
-            //{
-            //    resultLabel.Text = "Error: " + e.Error.Message;
-            //}
-            //else
-            //{
-            //    resultLabel.Text = "Done!";
-            //}
         }
         #endregion
 

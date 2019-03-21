@@ -194,11 +194,14 @@ namespace RESD.Options
         #region ---   判断标准——软基换填
 
         /// <summary> 当道路中线处设计填方厚度大于此厚度值时，则不用进行换填处理。 </summary>
-        [Browsable(true), Category(ctg_Judge), Description("当道路中线处设计填方厚度大于此厚度值时，则不用进行换填处理。")]
-        public double 薄层厚度 { get; set; }
+        [Browsable(false), Category(ctg_Judge), Description("(取消此项)当道路中线处设计填方厚度大于此厚度值时，则不用进行换填处理。")]
+        private double 薄层厚度 { get; set; }
+        // 本图为薄层软基段路基处理，适用于软土层厚度1～3m的地段，其中软土层指自然地面以下的软土层厚度，而不是指路面到自然地面的填方厚度。
 
-        /// <summary> 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于<seealso cref="最小换填厚度"/>，则认为此断面应该计入D的换填厚度 </summary>
-        [Browsable(true), Category(ctg_Judge), Description("如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于此最小换填厚度，则认为此断面应该计入D的换填厚度")]
+        /// <summary> 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于<seealso cref="最小换填厚度"/>，则认为此断面应该计入D的换填厚度，
+        /// 否则，认为此断面所做低填处理就已经包含了软基换填的功能，不必再额外进行换填了 </summary>
+        [Browsable(true), Category(ctg_Judge), Description("如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于此最小换填厚度，则认为此断面应该计入D的换填厚度，" +
+                                                           "否则，认为此断面所做低填处理就已经包含了软基换填的功能，不必再额外进行换填了")]
         public double 最小换填厚度 { get; set; }
 
         #endregion
@@ -212,7 +215,7 @@ namespace RESD.Options
         /// <summary> 所有换填处理各层的总厚度D，单位为m。
         /// 如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于<seealso cref="最小换填厚度"/>，则认为此断面应该计入D的换填厚度 </summary>
         [Browsable(true), Category(ctg_Calculate), Description("所有换填处理各层的总厚度D，单位为m。如果除去低填处理的厚度T之后，剩下的换填厚度(D-T)还大于0.5m，则认为此断面应该计入D的换填厚度")]
-        public double 换填厚度 { get; set; }
+        public double 换填厚度D { get; set; }
 
         #endregion
 
@@ -233,10 +236,10 @@ namespace RESD.Options
         /// <summary> 私有的构造函数 </summary>
         private Criterion_SoftSub() : base()
         {
-            薄层厚度 = 3.0;
+            薄层厚度 = 300.0;
             附加宽度 = 2.0;
             最小换填厚度 = 0.5;
-            换填厚度 = 1.5;
+            换填厚度D = 1.5;
 
             // 这一句必须保留，因为在序列化时会直接进行此处的 public 构造函数，而不会从 public static DefinitionCollection GetUniqueInstance() 进入。
             // 此时必须通过这一句保证 _uniqueInstance 与本全局对象的同步。

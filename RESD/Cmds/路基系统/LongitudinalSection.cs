@@ -24,7 +24,7 @@ using Exception = System.Exception;
 namespace RESD.Cmds
 {
     /// <summary> 沿着道路纵向绘制边坡线 </summary>
-    [EcDescription("沿着道路纵向绘制边坡线")]
+    [EcDescription(CommandDescription)]
     public class LongitudinalSectionDrawer : ICADExCommand
     {
         private DocumentModifier _docMdf;
@@ -34,7 +34,7 @@ namespace RESD.Cmds
         /// <summary> 命令行命令名称，同时亦作为命令语句所对应的C#代码中的函数的名称 </summary>
         public const string CommandName = "LongitudinalSection";
         private const string CommandText = @"绘制纵断面";
-        private const string CommandDescription = @"沿着道路纵向绘制边坡线与挡墙";
+        private const string CommandDescription = @"沿着道路纵向绘制边坡线与挡墙（红色为右侧，绿色为左侧）";
 
         /// <summary> 沿着道路纵向绘制边坡线 </summary>
         [CommandMethod(AddinOptions.GroupCommnad, CommandName, CommandFlags.UsePickSet)
@@ -67,14 +67,10 @@ namespace RESD.Cmds
             {
                 //
                 var allStations = allSections.Select(r => r.XData.Station).ToArray();
-                var minStation = allStations.First();
+                var allElevations = allSections.Select(r => r.XData.CenterElevation_Road).ToArray();
 
                 //
-                // 每一个桩号所对应的某一侧的挡墙顶与挡墙底相对于道路中线的高度，如果某桩号中没有挡墙，则其值为 null
-                var leftRetainingWalls = new Dictionary<double, double[]>();
-                var rightRetainingWalls = new Dictionary<double, double[]>();
-                var leftSlps = ConstructLeftSlope(allSections, true, out leftRetainingWalls);
-                var rightSlps = ConstructLeftSlope(allSections, false, out rightRetainingWalls);
+
 
                 // 选择绘图的基点
                 Point3d p3;
@@ -83,8 +79,12 @@ namespace RESD.Cmds
 
                 var basePt2D = new Point2d(p3.X, p3.Y);
                 //
-                double rx = 0.25;
-                double ry = 2;
+                var firstStation = allStations.First();
+                var firstElevation = allElevations.First();
+
+                // 绘图时，x与y方向上的缩放比例，小于1表示缩小
+                double rx = 1;  //0.25;
+                double ry = 1;  //2;
                 //
                 var ss = EditStateIdentifier.GetCurrentEditState(_docMdf);
                 ss.CurrentBTR.UpgradeOpen();
@@ -93,26 +93,32 @@ namespace RESD.Cmds
                 docMdf.acDataBase.Clayer = layer_Slope.Id;
 
                 // 绘制中轴线
-                var roadCenterPl = CreatePolyline(allStations, new double[allStations.Length], basePt2D, minStation, rx,
-                    ry);
+                var roadCenterPl = CreatePolyline(allStations, allElevations, firstStation, firstElevation, basePt2D, rx, ry);
                 ss.CurrentBTR.AppendEntity(roadCenterPl);
                 _docMdf.acTransaction.AddNewlyCreatedDBObject(roadCenterPl, true);
                 // 绘制桩号
-                var txts = CreateDbTexts(allStations, new double[allStations.Length], basePt2D, minStation, rx, ry);
+                var txts = CreateDbTexts(allStations, allElevations, firstStation, firstElevation, basePt2D, rx, ry);
                 foreach (var txt in txts)
                 {
                     ss.CurrentBTR.AppendEntity(txt);
                     _docMdf.acTransaction.AddNewlyCreatedDBObject(txt, true);
                 }
+
+
+                // 每一个桩号所对应的某一侧的挡墙顶与挡墙底相对于道路中线的高度，如果某桩号中没有挡墙，则其值为 null
+                var leftRetainingWalls = new Dictionary<double, double[]>();
+                var rightRetainingWalls = new Dictionary<double, double[]>();
+                var leftSlps = ConstructLeftSlope(allSections, true, out leftRetainingWalls);
+                var rightSlps = ConstructLeftSlope(allSections, false, out rightRetainingWalls);
+
                 // 绘制左边坡线
-                var leftPl = CreatePolyline(leftSlps.Keys.ToArray(), leftSlps.Values.ToArray(), basePt2D, minStation, rx,
-                    ry);
+                Polyline leftPl = CreatePolyline(leftSlps.Keys.ToArray(), leftSlps.Values.ToArray(), firstStation, firstElevation, basePt2D, rx, ry);
                 leftPl.LineWeight = LineWeight.LineWeight013;
                 leftPl.Color = Color.FromColor(System.Drawing.Color.Green);
                 ss.CurrentBTR.AppendEntity(leftPl);
                 _docMdf.acTransaction.AddNewlyCreatedDBObject(leftPl, true);
                 // 绘制右边坡线
-                var rightPl = CreatePolyline(rightSlps.Keys.ToArray(), rightSlps.Values.ToArray(), basePt2D, minStation,
+                Polyline rightPl = CreatePolyline(rightSlps.Keys.ToArray(), rightSlps.Values.ToArray(), firstStation, firstElevation, basePt2D,
                     rx, ry);
                 rightPl.LineWeight = LineWeight.LineWeight013;
                 rightPl.Color = Color.FromColor(System.Drawing.Color.Red);
@@ -123,8 +129,8 @@ namespace RESD.Cmds
                 var leftRetainingWallRanges = GetRetainingWallRanges(leftRetainingWalls);
                 foreach (var rwr in leftRetainingWallRanges)
                 {
-                    var pl = CreatePolyline(ArrayConstructor.GetColumn(rwr, 0), ArrayConstructor.GetColumn(rwr, 1),
-                        basePt2D, minStation, rx, ry);
+                    var pl = CreatePolyline(ArrayConstructor.GetColumn(rwr, 0), ArrayConstructor.GetColumn(rwr, 1), firstStation, firstElevation,
+                        basePt2D, rx, ry);
                     pl.Closed = true;
                     pl.Color = Color.FromColor(System.Drawing.Color.LightGreen);
                     pl.LineWeight = LineWeight.LineWeight050;
@@ -135,8 +141,8 @@ namespace RESD.Cmds
                 var rightRetainingWallRanges = GetRetainingWallRanges(rightRetainingWalls);
                 foreach (var rwr in rightRetainingWallRanges)
                 {
-                    var pl = CreatePolyline(ArrayConstructor.GetColumn(rwr, 0), ArrayConstructor.GetColumn(rwr, 1),
-                        basePt2D, minStation, rx, ry);
+                    var pl = CreatePolyline(ArrayConstructor.GetColumn(rwr, 0), ArrayConstructor.GetColumn(rwr, 1), firstStation, firstElevation,
+                        basePt2D, rx, ry);
                     pl.Closed = true;
                     pl.Color = Color.FromColor(System.Drawing.Color.DeepPink);
                     pl.LineWeight = LineWeight.LineWeight050;
@@ -150,14 +156,11 @@ namespace RESD.Cmds
             return ExternalCmdResult.Commit;
         }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <summary> 构造左右边坡的坡口/坡脚线 </summary>
         /// <param name="allSections"></param>
         /// <param name="left"></param>
-        /// <param name="retainingWalls">每一个桩号所对应的某一侧的挡墙顶与挡墙底相对于道路中线的高度，如果某桩号中没有挡墙，则其值为 null</param>
-        /// <returns>每一个桩号所对应的开口线相对于道路中线的高度。</returns>
+        /// <param name="retainingWalls">每一个桩号所对应的某一侧的挡墙顶与挡墙底的绝对标高，如果某桩号中没有挡墙，则其值为 null</param>
+        /// <returns>每一个桩号所对应的边坡的坡口坡脚线的绝对标高。</returns>
         private Dictionary<double, double> ConstructLeftSlope(SubgradeSection[] allSections, bool left,
             out Dictionary<double, double[]> retainingWalls)
         {
@@ -178,23 +181,27 @@ namespace RESD.Cmds
                             var spline = sec.GetSlopeLine(true);
                             var xdata = spline.XData;
                             var height = 0.0;
+
                             if (xdata.Slopes.Any())
                             {
-                                height = xdata.Slopes.Last().OuterPoint.Y - xdata_Section.CenterY;
+                                // height 为边坡的坡口坡脚线至道路中心点的Z向高差
+                                // height = xdata.Slopes.Last().OuterPoint.Y - xdata_Section.CenterY;
+                                height = xdata_Section.GetEleFromY(xdata.Slopes.Last().OuterPoint.Y);
                             }
                             else
                             {
                                 var edgeElevation = xdata.FillCut ? xdata.BottomElevation : xdata.TopElevation;
-                                height = edgeElevation - xdata_Section.CenterElevation_Road;
+                                //height = edgeElevation - xdata_Section.CenterElevation_Road;
+                                height = edgeElevation;
                             }
                             slps.Add(xdata_Section.Station, height);
-
                         }
                         else
                         {
-                            slps.Add(xdata_Section.Station, 0);
+                            // 某侧没有边坡时，先随便给个值测试一下吧
+                            slps.Add(xdata_Section.Station, xdata_Section.LeftRoadEdge.Y);
                         }
-                        // 挡墙
+                        // 左侧挡墙
                         var retainingWall = xdata_Section.LeftRetainingWallType != RetainingWallType.无
                             ? xdata_Section.LeftRetainingWallHandle.GetDBObject<Polyline>(sec.DocMdf.acDataBase)
                             : null;
@@ -203,15 +210,15 @@ namespace RESD.Cmds
                             var rtw = new RetainingWall(retainingWall);
                             var topY = rtw.GetTopY();
                             var bottomY = rtw.GetBottomY();
-                            retainingWalls.Add(xdata_Section.Station,
-                                new double[] { topY - xdata_Section.CenterY, bottomY - xdata_Section.CenterY });
+                            // retainingWalls.Add(xdata_Section.Station, new double[] { topY - xdata_Section.CenterY, bottomY - xdata_Section.CenterY });
+                            retainingWalls.Add(xdata_Section.Station, new double[] { xdata_Section.GetEleFromY(topY), xdata_Section.GetEleFromY(bottomY) });
                         }
-                        else
+                        else // 本侧没有挡墙
                         {
                             retainingWalls.Add(xdata_Section.Station, null);
                         }
                     }
-                    else
+                    else // 右侧边坡与挡墙
                     {
                         if (xdata_Section.RightSlopeExists)
                         {
@@ -219,22 +226,26 @@ namespace RESD.Cmds
                             var xdata = spline.XData;
 
                             var height = 0.0;
-                            if (spline.XData.Slopes.Any())
+                            if (xdata.Slopes.Any())
                             {
-                                height = spline.XData.Slopes.Last().OuterPoint.Y - xdata_Section.CenterY;
+                                // height = xdata.Slopes.Last().OuterPoint.Y - xdata_Section.CenterY;
+                                height = xdata_Section.GetEleFromY(xdata.Slopes.Last().OuterPoint.Y);
                             }
                             else
                             {
                                 var edgeElevation = xdata.FillCut ? xdata.BottomElevation : xdata.TopElevation;
-                                height = edgeElevation - xdata_Section.CenterElevation_Road;
+                                // height = edgeElevation - xdata_Section.CenterElevation_Road;
+                                height = edgeElevation;
                             }
                             slps.Add(xdata_Section.Station, height);
                         }
                         else
                         {
-                            slps.Add(xdata_Section.Station, 0);
+                            // 某侧没有边坡时，先随便给个值测试一下吧
+                            // slps.Add(xdata_Section.Station, xdata_Section.CenterElevation_Road);
+                            slps.Add(xdata_Section.Station, xdata_Section.RightRoadEdge.Y);
                         }
-                        // 挡墙
+                        // 右侧挡墙
                         var retainingWall = xdata_Section.RightRetainingWallType != RetainingWallType.无
                             ? xdata_Section.RightRetainingWallHandle.GetDBObject<Polyline>(sec.DocMdf.acDataBase)
                             : null;
@@ -243,14 +254,14 @@ namespace RESD.Cmds
                             var rtw = new RetainingWall(retainingWall);
                             var topY = rtw.GetTopY();
                             var bottomY = rtw.GetBottomY();
-                            retainingWalls.Add(xdata_Section.Station,
-                                new double[] { topY - xdata_Section.CenterY, bottomY - xdata_Section.CenterY });
+                            // retainingWalls.Add(xdata_Section.Station, new double[] { topY - xdata_Section.CenterY, bottomY - xdata_Section.CenterY });
+                            retainingWalls.Add(xdata_Section.Station, new double[] { xdata_Section.GetEleFromY(topY), xdata_Section.GetEleFromY(bottomY) });
                         }
-                        else
+                        else // 本侧没有挡墙
                         {
                             retainingWalls.Add(xdata_Section.Station, null);
                         }
-                    }
+                    } // 分别对左或右侧边坡进行处理
                 }
             }
             catch (Exception ex)
@@ -281,26 +292,44 @@ namespace RESD.Cmds
             return false;
         }
 
-        private Polyline CreatePolyline(double[] srcX, double[] srcY, Point2d basePt, double minStation, double rx,
-            double ry)
+        /// <summary> 绘制路线纵向特征线 </summary>
+        /// <param name="srcX">用来定位的绝对路线桩号</param>
+        /// <param name="srcY"></param>
+        /// <param name="firstStation">集合中作为基准的第一个桩号值</param>
+        /// <param name="firstElevation">集合中作为基准的第一个标高值</param>
+        /// <param name="basePt">绘制多段线的定位基点（鼠标在界面中点击的坐标点）</param>
+        /// <param name="rx">x方向的缩放比例</param>
+        /// <param name="ry">y方向的缩放比例</param>
+        /// <returns></returns>
+        private Polyline CreatePolyline(double[] srcX, double[] srcY, double firstStation, double firstElevation,
+            Point2d basePt, double rx, double ry)
         {
             // 创建一条有两段的多段线   Create a polyline with two segments (3 points)
             var acPoly = new Polyline();
             for (int i = 0; i < srcX.Length; i++)
             {
-                var pt = new Point2d((srcX[i] - minStation) * rx + basePt.X, (srcY[i] - 0) * ry + basePt.Y);
+                var pt = new Point2d((srcX[i] - firstStation) * rx + basePt.X, (srcY[i] - firstElevation) * ry + basePt.Y);
                 acPoly.AddVertexAt(i, pt, 0, startWidth: 0, endWidth: 0);
             }
             return acPoly;
         }
 
-        private DBText[] CreateDbTexts(double[] allStations, double[] srcY, Point2d basePt, double minStation, double rx,
-            double ry)
+
+        /// <summary> 沿纵向特征线绘制对应的数据文本 </summary>
+        /// <param name="allStations">用来定位的绝对路线桩号</param>
+        /// <param name="srcY"></param>
+        /// <param name="firstStation">集合中作为基准的第一个桩号值</param>
+        /// <param name="firstElevation">集合中作为基准的第一个标高值</param>
+        /// <param name="basePt">绘制多段线的定位基点（鼠标在界面中点击的坐标点）</param>
+        /// <param name="rx">x方向的缩放比例</param>
+        /// <param name="ry">y方向的缩放比例</param>
+        /// <returns></returns>
+        private DBText[] CreateDbTexts(double[] allStations, double[] srcY, double firstStation, double firstElevation, Point2d basePt, double rx, double ry)
         {
             var texts = new DBText[allStations.Length];
             for (int i = 0; i < allStations.Length; i++)
             {
-                var pt = new Point2d((allStations[i] - minStation) * rx + basePt.X, (srcY[i] - 0) * ry + basePt.Y);
+                var pt = new Point2d((allStations[i] - firstStation) * rx + basePt.X, (srcY[i] - firstElevation) * ry + basePt.Y);
                 var txt = new DBText();
 
                 txt.TextString = allStations[i].ToString("0.###");

@@ -218,7 +218,7 @@ namespace RESD.Register
                 string text = registryKey.GetValue(@"AcadLocation").ToString();
                 result = true;
             }
-            catch
+            catch (Exception ex)
             {
                 result = false;
             }

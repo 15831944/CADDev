@@ -58,7 +58,7 @@ namespace RESD.Cmds
         /// <summary> 根据 AutoCAD 中的几何图形构造出完整的路基横断面信息系统 </summary>
         public ExternalCmdResult ConstructSections(DocumentModifier docMdf, SelectionSet impliedSelection)
         {
-            
+
             _docMdf = docMdf;
             SQUtils.SubgradeEnvironmentConfiguration(docMdf);
 
@@ -82,8 +82,10 @@ namespace RESD.Cmds
                     }
                 }
 
+                // 在弹出的窗口中执行路基断面构造操作
                 var f = new SectionsConstructorForm(docMdf, axisLines);
                 f.ShowDialog();
+                
                 // 
                 var stations = f.SectionAxes.Select(r => r.XData.Station).ToArray();
                 //检查是否有重复的桩号出现

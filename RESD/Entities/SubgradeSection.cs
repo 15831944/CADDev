@@ -403,7 +403,7 @@ namespace RESD.Entities
         /// <summary> 搜索记录横断面信息的块参照 </summary>
         private static BlockReference FindInfoBlock(Editor ed, Line l)
         {
-            var filterWall = new[]
+            var filterSectionInfo = new[]
             {
                 new TypedValue((int) DxfCode.Start, "INSERT"),
                 new TypedValue((int) DxfCode.LayerName, Options_LayerNames.LayerName_SectionInfo),
@@ -417,7 +417,8 @@ namespace RESD.Entities
             var res = ed.SelectCrossingWindow(
                 pt1: pt1,
                 pt2: pt2,
-                filter: new SelectionFilter(filterWall)); // 确保想要被选中的图元的一部分出现在屏幕中
+                filter: new SelectionFilter(filterSectionInfo)); // 确保想要被选中的图元的一部分出现在屏幕中
+
             if (res.Status == PromptStatus.OK)
             {
                 // 可能会选中多个块参照
